@@ -1,14 +1,31 @@
 'use strict';
 
+const shipDataArr = [];
+
+var formDataShipping = document.getElementById('shipping-form');
+
+formDataShipping.addEventListener("change", shpData);
+
+function shpData() {
+  for (let i = 0; i < formDataShipping.length; i++) {
+    shipDataArr[i] = formDataShipping[i].value;
+  }
+}
+
+
+
+
+
+
+
 const strPrice = document.getElementsByClassName('price');
 const normPrice = [];
 const updatePrice = [];
 const qty = document.getElementsByClassName('qty');
 
-var updateShipping = document.getElementById('shipping-form');
 var updateCart = document.getElementById('cart')
 var updateSub = document.getElementById('subtotal').children[1]
-var updateShippingPrice = document.getElementById('shipping').children[1];
+var updateShipping = document.getElementById('shipping').children[1];
 var updateTax = document.getElementById('tax').children[1];
 var updateTotal = document.getElementById('total').children[1];
 
@@ -30,7 +47,7 @@ if (tax != 0){
 }
 
 updateCart.addEventListener("change", updateQty);
-updateShipping.addEventListener("change", shipPrice)
+formDataShipping.addEventListener("change", shipPrice)
 
 function updateQty() {
   sub = 0;
@@ -68,7 +85,7 @@ function shipPrice() {
     tax = 0.15;
   }
 
-  updateShippingPrice.innerHTML = "$" + shipping.toFixed(2);
+  updateShipping.innerHTML = "$" + shipping.toFixed(2);
   updateTax.innerHTML = "$" + (tax * sub).toFixed(2);
 
 }
