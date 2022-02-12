@@ -1,22 +1,55 @@
 'use strict';
 
+/* <--------------- Shipping Data Storage ---------------> */
+
 const shipDataArr = [];
 
 var formDataShipping = document.getElementById('shipping-form');
+var navPick = document.getElementById('navigation').children[0];
+var billingButton = document.getElementById('to-billing');
 
 formDataShipping.addEventListener("change", shpData);
 
 function shpData() {
+  var shipCount = 0;
+  var verifyData = "";
   for (let i = 0; i < formDataShipping.length; i++) {
     shipDataArr[i] = formDataShipping[i].value;
+
+    if (shipDataArr[i] != "") {
+      shipCount++;
+    }
+  }
+
+  var atIndex = shipDataArr[1].indexOf("@");
+  var dotIndex = shipDataArr[1].indexOf(".");
+
+  if (atIndex > 0 && dotIndex > atIndex && dotIndex != atIndex + 1){
+    verifyData = "yes";
+    console.log("yes")
+  }
+
+  else {
+    verifyData = "no";
+    console.log("no")
+  }
+
+  if (shipCount == 10 && shipDataArr[7] != "" || shipCount == 9 && shipDataArr[7] == "") {
+    navPick.children[1].innerHTML = "<a href=\"./billing/\">Billing</a>"
+    navPick.children[2].innerHTML = "<a href=\"./payment/\">Payment</a>"
+    billingButton.innerHTML = "<a href=\"./billing/\">Billing</a>"
+  }
+  else {
+    navPick.children[1].innerHTML = "Billing"
+    navPick.children[2].innerHTML = "Payment"
+    billingButton.innerHTML = "Continue to Billing"
   }
 }
 
 
 
 
-
-
+/* <--------------- Shopping Cart Manipulation ---------------> */
 
 const strPrice = document.getElementsByClassName('price');
 const normPrice = [];
