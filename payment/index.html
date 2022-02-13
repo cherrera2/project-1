@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Shipping: Cyrus Herrera </title>
+    <title>Payment: Cyrus Herrera </title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no" />
-    <link rel="stylesheet" href="assets/css/screen.css"/>
+    <link rel="stylesheet" href="../assets/css/screen.css"/>
   </head>
   <body>
     <header id="page-header">
@@ -25,11 +25,19 @@
         <header class="page-cmd">
           <h2>Pay With:</h2>
         </header>
+        <label for="c-number">Card Number</label>
+        <input type="number" name="c-number" id="c-number" required="yes" />
+        <label for="exp-date">Expiration Date</label>
+        <input type="number" name="exp-date" id="exp-date" required="yes" />
+        <label for="sec-code">Security Code</label>
+        <input type="number" name="sec-code" id="sec-code" required="yes" />
+        <label for="c-name">Name on Card</label>
+        <input type="name" name="c-name" id="c-name" required="yes" />
       </form>
     </main>
     <footer id="footer">
       Site copyright Cyrus Herrera 2022
     </footer>
-    <script src="assets/js/main.js"></script>
+    <script src="../assets/js/main.js"></script>
   </body>
 </html>

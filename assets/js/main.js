@@ -8,7 +8,11 @@ var formDataShipping = document.getElementById('shipping-form');
 var navPick = document.getElementById('navigation').children[0];
 var billingButton = document.getElementById('to-billing');
 
-formDataShipping.addEventListener("change", shpData);
+try {
+  formDataShipping.addEventListener("change", shpData);
+} catch (e) {
+
+}
 
 function shpData() {
   var shipCount = 0;
@@ -92,7 +96,12 @@ if (tax != 0){
 }
 
 updateCart.addEventListener("change", updateQty);
-formDataShipping.addEventListener("change", shipPrice)
+
+try {
+  formDataShipping.addEventListener("change", shipPrice)
+} catch (e) {
+
+}
 
 function updateQty() {
   sub = 0;
