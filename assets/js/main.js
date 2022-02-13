@@ -12,7 +12,7 @@ formDataShipping.addEventListener("change", shpData);
 
 function shpData() {
   var shipCount = 0;
-  var verifyData = "";
+  var verifyData = 0;
   for (let i = 0; i < formDataShipping.length; i++) {
     shipDataArr[i] = formDataShipping[i].value;
 
@@ -25,8 +25,7 @@ function shpData() {
   var dotIndex = shipDataArr[1].indexOf(".");
 
   if (atIndex > 0 && dotIndex > atIndex && dotIndex != atIndex + 1){
-    verifyData = "yes";
-    console.log("yes")
+    verifyData++;
   }
 
   else {
@@ -34,7 +33,20 @@ function shpData() {
     console.log("no")
   }
 
-  if (shipCount == 10 && shipDataArr[7] != "" || shipCount == 9 && shipDataArr[7] == "") {
+  var phoneNumber = parseInt(shipDataArr[9]);
+
+  if (phoneNumber.toString().length == 10) {
+    shipDataArr[9] = phoneNumber;
+    verifyData++;
+  }
+  else {
+    verifyData = "no";
+  }
+
+  var contToBilling = shipCount == 10 && shipDataArr[7] != "" && verifyData == 2
+      || shipCount == 9 && shipDataArr[7] == "" && verifyData == 2;
+
+  if (contToBilling == true) {
     navPick.children[1].innerHTML = "<a href=\"./billing/\">Billing</a>"
     navPick.children[2].innerHTML = "<a href=\"./payment/\">Payment</a>"
     billingButton.innerHTML = "<a href=\"./billing/\">Billing</a>"
