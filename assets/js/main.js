@@ -77,6 +77,7 @@ var updateSub = document.getElementById('subtotal').children[1]
 var updateShipping = document.getElementById('shipping').children[1];
 var updateTax = document.getElementById('tax').children[1];
 var updateTotal = document.getElementById('total').children[1];
+var clickBag = document.getElementById('bag').children[0];
 
 var cont = document.getElementById('country-name');
 
@@ -142,4 +143,12 @@ function shipPrice() {
   updateShipping.innerHTML = "$" + shipping.toFixed(2);
   updateTax.innerHTML = "$" + (tax * sub).toFixed(2);
 
+}
+
+
+clickBag.addEventListener('click', openCart);
+
+function openCart() {
+  document.getElementById('cart').style.display = "block";
+  console.log("hi");
 }

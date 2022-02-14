@@ -49,33 +49,78 @@ footer {
   padding-left: 1.5625em; /* 19.2 / 12.288 = 1.5625em */
 }
 
-li.active a {
-  background-color: rgb(173, 155, 194); /* Light Purple */
+* {
+  box-sizing: border-box;
 }
 
-nav a {
-  color: black;
+input, #country-name {
+  width: 90%;
+  padding: 0.5em;
+  resize: vertical;
+}
+
+label {
+  font-size: 0.7999999999999999em; /* 19.2 / 24 = 0.7999999999999999em*/
+  padding-left: 1em; /* 19.2 / 19.2 = 1em */
+}
+
+img {
+  position: absolute;
+  top: 5em;
   display: block;
-  padding: 0.8em; /* 15.36 / 19.2 = 0.8*/
-  text-decoration: none;
+  max-width: 15%;
+  margin-left: 0.5em;
 }
 
-nav a:hover {
-  color: rgb(245, 245, 245); /* Light Grey */
-  background-color: rgb(104, 71, 143); /* Dark Purple */
+img:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+#cart {
+  display: none;
+  height: 100%;
+  width: 250px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: white;
+  overflow-x: hidden;
+  padding-top: 2.5em;
+}
+
+#cart h3 {
+  font-size: 1.25em; /* 30 / 24 = 1.25em */
+  line-height: 1.2em; /* 36 / 30 = 1.2em */
+  padding: 0.64em; /* 30 / 19.2 = 0.64em */
+  text-align: center;
+}
+
+.items {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.qty {
+  margin-left: 1.5em;
+}
+
+.nav-info {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-info li {
+  font-size: 0.7999999999999999em; /* 19.2 / 24 = 0.7999999999999999em*/
+  padding: 0.5em;
 }
 
 p {
   font-size: 0.64em; /* 15.36 / 24 = 0.64em */
   padding-bottom: 0.78125em; /*12 / 15.36 = 0.78125em */
   padding-left: 1.25em; /* 19.2 / 15.36 = 0.78125em */
-}
-
-ul.nav-info {
-
-  box-shadow: 0 0.625em 0.625em -0.625em grey;
-  font-size: 0.7999999999999999em; /* 19.2 / 24 = 0.7999999999999999em*/
-  text-align: center;
 }
 
 @media screen and (min-width: 26.25em)  /* 420px = 26.25em */ {
