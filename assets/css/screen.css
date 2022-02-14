@@ -72,12 +72,18 @@ img {
   margin-left: 0.5em;
 }
 
+#x-button img {
+  left: 7.5em;
+  top: 1.7em;
+}
+
 img:hover {
   cursor: pointer;
   opacity: 0.5;
 }
 
 #cart {
+  box-shadow: 0.1em 0.1em 3em;
   display: none;
   height: 100%;
   width: 250px;

@@ -18,6 +18,9 @@
       </nav>
     </header>
     <main id="content">
+      <figure id="bag">
+        <img src="../assets/images/bag.png" alt="View shopping cart"/>
+      </figure>
       <header id="label-payment">
         <h2>Payment<h2>
       </header>
@@ -34,6 +37,93 @@
         <label for="c-name">Name on Card</label>
         <input type="name" name="c-name" id="c-name" required="yes" />
       </form>
+      <aside id="order-info">
+        <section id="cart">
+          <h3>Cart</h3>
+          <figure id="x-button">
+            <img src="../assets/images/x-button.png" alt="View shopping cart"/>
+          </figure>
+          <ul class="items">
+            <li>
+              <article id="item-1">
+                <header class="item-name">
+                  <h4>Apple</h4>
+                </header>
+                <p class="price">$0.99</p>
+                <select name="qty" class="qty">
+                  <option value=1>1</option>
+                  <option value=2>2</option>
+                  <option value=3>3</option>
+                  <option value=4>4</option>
+                  <option value=5>5</option>
+                  <option value=6>6</option>
+                  <option value=7>7</option>
+                  <option value=8>8</option>
+                  <option value=9>9</option>
+                </select>
+              </artcile>
+            </li>
+            <li>
+              <article id="item-2">
+                <header class="item-name">
+                  <h4>Hammer</h4>
+                </header>
+                <p class="price">$10.99</p>
+                <select name="qty" class="qty">
+                  <option value=1>1</option>
+                  <option value=2>2</option>
+                  <option value=3>3</option>
+                  <option value=4>4</option>
+                  <option value=5>5</option>
+                  <option value=6>6</option>
+                  <option value=7>7</option>
+                  <option value=8>8</option>
+                  <option value=9>9</option>
+                </select>
+              </article>
+            </li>
+            <li>
+              <article id="item-3">
+                <header class="item-name">
+                  <h4>Clock</h4>
+                </header>
+                <p class="price">$4.95</p>
+                <select name="qty" class="qty">
+                  <option value=1>1</option>
+                  <option value=2>2</option>
+                  <option value=3>3</option>
+                  <option value=4>4</option>
+                  <option value=5>5</option>
+                  <option value=6>6</option>
+                  <option value=7>7</option>
+                  <option value=8>8</option>
+                  <option value=9>9</option>
+                </select>
+            </article>
+            </li>
+          </ul>
+        </section>
+        <section id=summary>
+          <h3>Summary</h3>
+          <header id="subtotal">
+            <h4>Subtotal</h4>
+            <p>$X</p>
+          </header>
+          <header id="shipping">
+            <h4>Shipping</h4>
+            <p>$X</p>
+          </header>
+          <header id="tax">
+            <h4>Tax</h4>
+            <p>$X</p>
+          </header>
+          <header id="total">
+            <h4>Total</h4>
+            <p>$X</p>
+          </header>
+        </section>
+      </aside>
+      <button id="to-billing">Continue to Billing</button>
     </main>
     <footer id="footer">
       Site copyright Cyrus Herrera 2022

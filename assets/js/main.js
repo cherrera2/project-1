@@ -78,7 +78,7 @@ var updateShipping = document.getElementById('shipping').children[1];
 var updateTax = document.getElementById('tax').children[1];
 var updateTotal = document.getElementById('total').children[1];
 var clickBag = document.getElementById('bag').children[0];
-
+var clickX = document.getElementById('x-button').children[0];
 var cont = document.getElementById('country-name');
 
 var sub = 0;
@@ -145,10 +145,15 @@ function shipPrice() {
 
 }
 
-
 clickBag.addEventListener('click', openCart);
+clickX.addEventListener('click', closeCart);
 
 function openCart() {
   document.getElementById('cart').style.display = "block";
+  console.log("hi");
+}
+
+function closeCart() {
+  document.getElementById('cart').style.display = "none";
   console.log("hi");
 }
