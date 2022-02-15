@@ -53,11 +53,11 @@ function shpData() {
   if (contToBilling == true) {
     navPick.children[1].innerHTML = "<a href=\"./billing/\">Billing</a>"
     navPick.children[2].innerHTML = "<a href=\"./payment/\">Payment</a>"
-    billingButton.innerHTML = "<a href=\"./billing/\">Billing</a>"
+    billingButton.innerHTML = "<a href=\"./billing/\">Continue to Billing</a>"
   }
   else {
-    navPick.children[1].innerHTML = "Billing"
-    navPick.children[2].innerHTML = "Payment"
+    navPick.children[1].innerHTML = ""
+    navPick.children[2].innerHTML = ""
     billingButton.innerHTML = "Continue to Billing"
   }
 }
