@@ -27,7 +27,8 @@ h1 {
 h2 {
   font-size: 1.25em; /* 30 / 24 = 1.25em */
   line-height: 1.2em; /* 36 / 30 = 1.2em */
-  padding: 0.64em; /* 30 / 19.2 = 0.64em */
+  padding-left: 0.64em; /* 30 / 19.2 = 0.64em */
+  padding-top: 0.64em; /* 30 / 19.2 = 0.64em */
 }
 
 h3 {
@@ -66,7 +67,7 @@ label {
   padding-left: 1em; /* 19.2 / 19.2 = 1em */
 }
 
-img {
+#bag img {
   position: absolute;
   top: 5.25em;
   display: block;
@@ -75,8 +76,11 @@ img {
 }
 
 #x-button img {
-  left: 7.5em;
-  top: 1.7em;
+  top: 5.25em;
+  left: 8.5em;
+  max-width: 12%;
+  position: absolute;
+  top: 1.25em;
 }
 
 img:hover {
@@ -119,6 +123,7 @@ img:hover {
   display: flex;
   justify-content: flex-end;
   padding-right: 0.25em;
+
 }
 
 .nav-info li {

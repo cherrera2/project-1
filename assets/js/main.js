@@ -1,69 +1,139 @@
 'use strict';
 
+/* <--------------- Global Variables ---------------> */
+
+var formData = document.forms[0];
+
+
 /* <--------------- Shipping Data Storage ---------------> */
 
 const shipDataArr = [];
-
-var formDataShipping = document.getElementById('shipping-form');
+var shippingFormData = document.getElementById('shipping-form');
 var navPick = document.getElementById('navigation').children[0];
 var billingButton = document.getElementById('to-billing');
 
 try {
-  formDataShipping.addEventListener("change", shpData);
+  shippingFormData.addEventListener('input', fillShippingForm);
 } catch (e) {
 
 }
 
-function shpData() {
+function fillShippingForm() {
+  var a = shpData("shipping");
+}
+
+function shpData(x) {
+  var type = x;
   var shipCount = 0;
   var verifyData = 0;
-  for (let i = 0; i < formDataShipping.length; i++) {
-    shipDataArr[i] = formDataShipping[i].value;
+
+  for (let i = 0; i < formData.length; i++) {
+    shipDataArr[i] = formData[i].value;
 
     if (shipDataArr[i] != "") {
       shipCount++;
     }
   }
 
-  var atIndex = shipDataArr[1].indexOf("@");
-  var dotIndex = shipDataArr[1].indexOf(".");
+  if (type == "shipping") {
+    var atIndex = shipDataArr[1].indexOf("@");
+    var dotIndex = shipDataArr[1].indexOf(".");
+  }
+
+  else if (type == "billing") {
+    var atIndex = shipDataArr[2].indexOf("@");
+    var dotIndex = shipDataArr[2].indexOf(".");
+  }
 
   if (atIndex > 0 && dotIndex > atIndex && dotIndex != atIndex + 1){
     verifyData++;
   }
 
   else {
-    verifyData = "no";
-    console.log("no")
+    verifyData = 0;
   }
 
-  var phoneNumber = parseInt(shipDataArr[9]);
+  if (type == "shipping") {
+    var phoneNumber = parseInt(shipDataArr[9]);
 
-  if (phoneNumber.toString().length == 10) {
-    shipDataArr[9] = phoneNumber;
-    verifyData++;
-  }
-  else {
-    verifyData = "no";
+    if (phoneNumber.toString().length == 10) {
+      shipDataArr[9] = phoneNumber;
+      verifyData++;
+    }
+    else {
+      verifyData = 0;
+    }
   }
 
-  var contToBilling = shipCount == 10 && shipDataArr[7] != "" && verifyData == 2
-      || shipCount == 9 && shipDataArr[7] == "" && verifyData == 2;
+  else if (type == "billing") {
+    var phoneNumber = parseInt(shipDataArr[10]);
 
-  if (contToBilling == true) {
-    navPick.children[1].innerHTML = "<a href=\"./billing/\">Billing</a>"
-    navPick.children[2].innerHTML = "<a href=\"./payment/\">Payment</a>"
-    billingButton.innerHTML = "<a href=\"./billing/\">Continue to Billing</a>"
+    if (phoneNumber.toString().length == 10) {
+      shipDataArr[10] = phoneNumber;
+      verifyData++;
+    }
+    else {
+      verifyData = 0;
+    }
   }
-  else {
-    navPick.children[1].innerHTML = ""
-    navPick.children[2].innerHTML = ""
-    billingButton.innerHTML = "Continue to Billing"
+
+  console.log(shipCount);
+
+  if(type == "shipping") {
+
+    var contTo = shipCount == 10 && shipDataArr[7] != "" && verifyData == 2
+        || shipCount == 9 && shipDataArr[7] == "" && verifyData == 2;
+
+    if (contTo == true) {
+      navPick.children[1].innerHTML = "<a href=\"./billing/\">Billing</a>";
+      navPick.children[2].innerHTML = "<a href=\"./payment/\">Payment</a>";
+      billingButton.innerHTML = "<a href=\"./billing/\">Continue to Billing</a>";
+
+      localStorage.setItem("localBillingData", shipDataArr);
+    }
+    else {
+      navPick.children[1].innerHTML = "";
+      navPick.children[2].innerHTML = ""
+      billingButton.innerHTML = "Continue to Billing";
+    }
+
   }
+
+  else if (type == "billing") {
+
+    var contTo = shipCount == 11 && shipDataArr[8] != "" && verifyData == 2
+        || shipCount == 10 && shipDataArr[8] == "" && verifyData == 2;
+
+    if (contTo == true) {
+      navPick.children[2].innerHTML = "<a href=\"../payment/\">Payment</a>";
+      billingButton.innerHTML = "<a href=\"../billing/\">Continue to Payment</a>";
+
+      localStorage.setItem("localShippingData", shipDataArr);
+    }
+    else {
+      navPick.children[2].innerHTML = ""
+      billingButton.innerHTML = "Continue to Payment";
+    }
+
+  }
+
 }
 
+/* <--------------- Billing Data Storage ---------------> */
+
+var billingFormData = document.getElementById('billing-form');
 
 
+
+try {
+  billingFormData.addEventListener('input', fillBillingForm);
+} catch (e) {
+
+}
+
+function fillBillingForm() {
+  var a = shpData("billing");
+}
 
 /* <--------------- Shopping Cart Manipulation ---------------> */
 
@@ -99,7 +169,7 @@ if (tax != 0){
 updateCart.addEventListener("change", updateQty);
 
 try {
-  formDataShipping.addEventListener("change", shipPrice)
+  formData.addEventListener("change", otherPrice)
 } catch (e) {
 
 }
@@ -119,7 +189,7 @@ function updateQty() {
 
 }
 
-function shipPrice() {
+function otherPrice() {
 
   if (cont.value == "united states") {
     shipping = 10;
@@ -150,10 +220,8 @@ clickX.addEventListener('click', closeCart);
 
 function openCart() {
   document.getElementById('cart').style.display = "block";
-  console.log("hi");
 }
 
 function closeCart() {
   document.getElementById('cart').style.display = "none";
-  console.log("hi");
 }
