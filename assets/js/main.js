@@ -26,13 +26,45 @@ function shpData(x) {
   var type = x;
   var shipCount = 0;
   var verifyData = 0;
+  var checked = document.getElementById('same-as-shipping').checked
 
-  for (let i = 0; i < formData.length; i++) {
-    shipDataArr[i] = formData[i].value;
+  if (checked == true) {
 
-    if (shipDataArr[i] != "") {
-      shipCount++;
+    for (let i = 0; i < formData.length; i++) {
+      shipDataArr[i] = localStorage.localShippingData.split(",")[i];
+
+      if (shipDataArr[i] != "") {
+        shipCount++;
+      }
+
     }
+
+    for (let i = 1; i < formData.length; i++) {
+      formData[i].value = localStorage.localShippingData.split(",")[i];
+      formData[i].setAttribute("disabled", "true");
+    }
+
+  }
+
+  else if (checked == false) {
+
+    for (let i = 0; i < formData.length; i++) {
+      shipDataArr[i] = formData[i].value;
+
+      if (shipDataArr[i] != "") {
+        shipCount++;
+      }
+    }
+
+    for (let i = 1; i < formData.length; i++) {
+      try {
+        formData[i].removeAttribute("disabled");
+      } catch (e) {
+
+      }
+
+    }
+
   }
 
   if (type == "shipping") {
@@ -89,7 +121,7 @@ function shpData(x) {
       navPick.children[2].innerHTML = "<a href=\"./payment/\">Payment</a>";
       billingButton.innerHTML = "<a href=\"./billing/\">Continue to Billing</a>";
 
-      localStorage.setItem("localBillingData", shipDataArr);
+      localStorage.setItem("localShippingData", shipDataArr);
     }
     else {
       navPick.children[1].innerHTML = "";
@@ -108,7 +140,7 @@ function shpData(x) {
       navPick.children[2].innerHTML = "<a href=\"../payment/\">Payment</a>";
       billingButton.innerHTML = "<a href=\"../billing/\">Continue to Payment</a>";
 
-      localStorage.setItem("localShippingData", shipDataArr);
+      localStorage.setItem("localBillingData", shipDataArr);
     }
     else {
       navPick.children[2].innerHTML = ""
@@ -123,8 +155,6 @@ function shpData(x) {
 
 var billingFormData = document.getElementById('billing-form');
 
-
-
 try {
   billingFormData.addEventListener('input', fillBillingForm);
 } catch (e) {
@@ -134,6 +164,11 @@ try {
 function fillBillingForm() {
   var a = shpData("billing");
 }
+
+/* <--------------- Payment Data Storage ---------------> */
+
+var billingFormData = document.getElementById('billing-form');
+
 
 /* <--------------- Shopping Cart Manipulation ---------------> */
 
