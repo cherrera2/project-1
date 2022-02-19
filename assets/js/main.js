@@ -24,7 +24,7 @@ function fillShippingForm() {
 
 function shpData(x) {
   var type = x;
-  var shipCount = 0;
+  var filledCount = 0;
   var verifyData = 0;
   var checked = document.getElementById('same-as-shipping').checked
 
@@ -34,7 +34,7 @@ function shpData(x) {
       shipDataArr[i] = localStorage.localShippingData.split(",")[i];
 
       if (shipDataArr[i] != "") {
-        shipCount++;
+        filledCount++;
       }
 
     }
@@ -52,7 +52,7 @@ function shpData(x) {
       shipDataArr[i] = formData[i].value;
 
       if (shipDataArr[i] != "") {
-        shipCount++;
+        filledCount++;
       }
     }
 
@@ -109,12 +109,12 @@ function shpData(x) {
     }
   }
 
-  console.log(shipCount);
+  console.log(filledCount);
 
   if(type == "shipping") {
 
-    var contTo = shipCount == 10 && shipDataArr[7] != "" && verifyData == 2
-        || shipCount == 9 && shipDataArr[7] == "" && verifyData == 2;
+    var contTo = filledCount == 10 && shipDataArr[7] != "" && verifyData == 2
+        || filledCount == 9 && shipDataArr[7] == "" && verifyData == 2;
 
     if (contTo == true) {
       navPick.children[1].innerHTML = "<a href=\"./billing/\">Billing</a>";
@@ -133,8 +133,8 @@ function shpData(x) {
 
   else if (type == "billing") {
 
-    var contTo = shipCount == 11 && shipDataArr[8] != "" && verifyData == 2
-        || shipCount == 10 && shipDataArr[8] == "" && verifyData == 2;
+    var contTo = filledCount == 11 && shipDataArr[8] != "" && verifyData == 2
+        || filledCount == 10 && shipDataArr[8] == "" && verifyData == 2;
 
     if (contTo == true) {
       navPick.children[2].innerHTML = "<a href=\"../payment/\">Payment</a>";
@@ -167,8 +167,41 @@ function fillBillingForm() {
 
 /* <--------------- Payment Data Storage ---------------> */
 
-var billingFormData = document.getElementById('billing-form');
+const paymentDataArr = [];
 
+var paymentFormData = document.getElementById('payment-form');
+var confirmButton = document.getElementById('to-confirm');
+
+try {
+  paymentFormData.addEventListener('input', payData);
+} catch (e) {
+
+}
+
+function payData() {
+  var filledCount = 0;
+
+  for (let i = 0; i < formData.length; i++) {
+    paymentDataArr[i] = formData[i].value;
+
+    if (paymentDataArr[i] != "") {
+      filledCount++;
+    }
+  }
+
+  if (paymentDataArr[0].length >= 13 && paymentDataArr[0].length <= 19 &&
+      paymentDataArr[1].length == 4 && paymentDataArr[2].length >= 3 &&
+      paymentDataArr[2].length <= 4 && filledCount == 4) {
+    confirmButton.innerHTML = "<a href=\"../billing/\">Confirm Order</a>";
+
+    localStorage.setItem("localPaymentData", paymentDataArr);
+  }
+
+  else {
+    confirmButton.innerHTML = "Confirm Order";
+  }
+
+}
 
 /* <--------------- Shopping Cart Manipulation ---------------> */
 
@@ -224,29 +257,35 @@ function updateQty() {
 
 }
 
-function otherPrice() {
+try {
 
-  if (cont.value == "united states") {
-    shipping = 10;
-    tax = 0.08;
+  function otherPrice() {
+
+    if (cont.value == "united states") {
+      shipping = 10;
+      tax = 0.08;
+    }
+
+    else if (cont.value == "canada") {
+      shipping = 15;
+      tax = 0.10;
+    }
+
+    else if (cont.value == "united kingdom") {
+      shipping = 20;
+      tax = 0.12;
+    }
+    else {
+      shipping = 30;
+      tax = 0.15;
+    }
+
+    updateShipping.innerHTML = "$" + shipping.toFixed(2);
+    updateTax.innerHTML = "$" + (tax * sub).toFixed(2);
+
   }
 
-  else if (cont.value == "canada") {
-    shipping = 15;
-    tax = 0.10;
-  }
-
-  else if (cont.value == "united kingdom") {
-    shipping = 20;
-    tax = 0.12;
-  }
-  else {
-    shipping = 30;
-    tax = 0.15;
-  }
-
-  updateShipping.innerHTML = "$" + shipping.toFixed(2);
-  updateTax.innerHTML = "$" + (tax * sub).toFixed(2);
+} catch (e) {
 
 }
 
