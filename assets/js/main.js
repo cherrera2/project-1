@@ -204,6 +204,7 @@ function payData() {
 const strPrice = document.getElementsByClassName('price');
 const normPrice = [];
 const updatePrice = [];
+const qtyArr = [];
 const qty = document.getElementsByClassName('qty');
 
 var updateCart = document.getElementById('cart');
@@ -215,31 +216,44 @@ var cont = document.getElementById('country-name');
 var sub = 0;
 var shipping = 0;
 var tax = 0;
+
 for (let i = 0; i < strPrice.length; i++) {
   normPrice[i] = parseFloat(strPrice[i].innerHTML.replace("$", ""));
   updatePrice[i] = normPrice[i]
   sub += updatePrice[i]
 }
 
+if (localStorage.localQtyData != undefined) {
+  for (let i = 0; i < strPrice.length; i++) {
+    qty[i].value = localStorage.localQtyData.split(",")[i];
+    updatePrice[i] = normPrice[i] * parseInt(qty[i].value);
+    strPrice[i].innerHTML = "$" + updatePrice[i].toFixed(2);
+    sub += updatePrice[i]
+  }
+}
+
 updateSummary.children[1].children[1].innerHTML = "$" + sub;
 updateSummary.children[4].children[1].innerHTML = "$" + ((tax * sub) + sub + shipping).toFixed(2);
+
 if (tax != 0){
   updateSummary.children[3].children[1].innerHTML = "$" + (tax * sub).toFixed(2);
 }
 
 updateCart.addEventListener('input', updateQty);
 
-
-  formData.addEventListener('input', otherPrice)
-
+formData.addEventListener('input', otherPrice)
 
 function updateQty() {
   sub = 0;
   for (let i = 0; i < qty.length; i++) {
-    updatePrice[i] = (normPrice[i] * parseInt(qty[i].value));
+    updatePrice[i] = normPrice[i] * parseInt(qty[i].value);
     strPrice[i].innerHTML = "$" + updatePrice[i].toFixed(2);
+    qtyArr[i] = qty[i].value;
     sub += updatePrice[i]
   }
+
+  localStorage.setItem("localQtyData", qtyArr);
+
   updateSummary.children[1].children[1].innerHTML = "$" + sub.toFixed(2);
   updateSummary.children[4].children[1].innerHTML = "$" + ((tax * sub) + sub + shipping).toFixed(2);
   if (tax != 0){
