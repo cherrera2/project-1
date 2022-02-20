@@ -26,11 +26,16 @@ function shpData(x) {
   var type = x;
   var filledCount = 0;
   var verifyData = 0;
-  var checked = document.getElementById('same-as-shipping').checked
+
+  try {
+    var checked = document.getElementById('same-as-shipping').checked
+  } catch (e) {
+
+  }
 
   if (checked == true) {
 
-    for (let i = 0; i < formData.length; i++) {
+    for (let i = 0; i < localStorage.localShippingData.split(",").length; i++) {
       shipDataArr[i] = localStorage.localShippingData.split(",")[i];
 
       if (shipDataArr[i] != "") {
@@ -40,7 +45,7 @@ function shpData(x) {
     }
 
     for (let i = 1; i < formData.length; i++) {
-      formData[i].value = localStorage.localShippingData.split(",")[i];
+      formData[i].value = localStorage.localShippingData.split(",")[i-1];
       formData[i].setAttribute("disabled", "true");
     }
 
@@ -48,10 +53,11 @@ function shpData(x) {
 
   else if (checked == false) {
 
-    for (let i = 0; i < formData.length; i++) {
-      shipDataArr[i] = formData[i].value;
+    for (let i = 1; i < formData.length; i++) {
+      shipDataArr[i-1] = formData[i].value;
 
-      if (shipDataArr[i] != "") {
+      if (shipDataArr[i-1] != "") {
+        console.log("yes");
         filledCount++;
       }
     }
@@ -67,15 +73,19 @@ function shpData(x) {
 
   }
 
-  if (type == "shipping") {
-    var atIndex = shipDataArr[1].indexOf("@");
-    var dotIndex = shipDataArr[1].indexOf(".");
+  else {
+    for (let i = 0; i < formData.length; i++) {
+      shipDataArr[i] = formData[i].value;
+
+      if (shipDataArr[i] != "") {
+        filledCount++;
+      }
+    }
+
   }
 
-  else if (type == "billing") {
-    var atIndex = shipDataArr[2].indexOf("@");
-    var dotIndex = shipDataArr[2].indexOf(".");
-  }
+  var atIndex = shipDataArr[1].indexOf("@");
+  var dotIndex = shipDataArr[1].indexOf(".");
 
   if (atIndex > 0 && dotIndex > atIndex && dotIndex != atIndex + 1){
     verifyData++;
@@ -85,28 +95,14 @@ function shpData(x) {
     verifyData = 0;
   }
 
-  if (type == "shipping") {
-    var phoneNumber = parseInt(shipDataArr[9]);
+  var phoneNumber = parseInt(shipDataArr[9]);
 
-    if (phoneNumber.toString().length == 10) {
-      shipDataArr[9] = phoneNumber;
-      verifyData++;
-    }
-    else {
-      verifyData = 0;
-    }
+  if (phoneNumber.toString().length == 10) {
+    shipDataArr[9] = phoneNumber;
+    verifyData++;
   }
-
-  else if (type == "billing") {
-    var phoneNumber = parseInt(shipDataArr[10]);
-
-    if (phoneNumber.toString().length == 10) {
-      shipDataArr[10] = phoneNumber;
-      verifyData++;
-    }
-    else {
-      verifyData = 0;
-    }
+  else {
+    verifyData = 0;
   }
 
   console.log(filledCount);
@@ -133,8 +129,8 @@ function shpData(x) {
 
   else if (type == "billing") {
 
-    var contTo = filledCount == 11 && shipDataArr[8] != "" && verifyData == 2
-        || filledCount == 10 && shipDataArr[8] == "" && verifyData == 2;
+    var contTo = filledCount == 10 && shipDataArr[7] != "" && verifyData == 2
+        || filledCount == 9 && shipDataArr[7] == "" && verifyData == 2;
 
     if (contTo == true) {
       navPick.children[2].innerHTML = "<a href=\"../payment/\">Payment</a>";
@@ -210,11 +206,8 @@ const normPrice = [];
 const updatePrice = [];
 const qty = document.getElementsByClassName('qty');
 
-var updateCart = document.getElementById('cart')
-var updateSub = document.getElementById('subtotal').children[1]
-var updateShipping = document.getElementById('shipping').children[1];
-var updateTax = document.getElementById('tax').children[1];
-var updateTotal = document.getElementById('total').children[1];
+var updateCart = document.getElementById('cart');
+var updateSummary = document.getElementById('summary');
 var clickBag = document.getElementById('bag').children[0];
 var clickX = document.getElementById('x-button').children[0];
 var cont = document.getElementById('country-name');
@@ -228,19 +221,17 @@ for (let i = 0; i < strPrice.length; i++) {
   sub += updatePrice[i]
 }
 
-updateSub.innerHTML = "$" + sub;
-updateTotal.innerHTML = "$" + ((tax * sub) + sub + shipping).toFixed(2);
+updateSummary.children[1].children[1].innerHTML = "$" + sub;
+updateSummary.children[4].children[1].innerHTML = "$" + ((tax * sub) + sub + shipping).toFixed(2);
 if (tax != 0){
-  updateTax.innerHTML = "$" + (tax * sub).toFixed(2);
+  updateSummary.children[3].children[1].innerHTML = "$" + (tax * sub).toFixed(2);
 }
 
-updateCart.addEventListener("change", updateQty);
+updateCart.addEventListener('input', updateQty);
 
-try {
-  formData.addEventListener("change", otherPrice)
-} catch (e) {
 
-}
+  formData.addEventListener('input', otherPrice)
+
 
 function updateQty() {
   sub = 0;
@@ -249,17 +240,17 @@ function updateQty() {
     strPrice[i].innerHTML = "$" + updatePrice[i].toFixed(2);
     sub += updatePrice[i]
   }
-  updateSub.innerHTML = "$" + sub.toFixed(2);
-  updateTotal.innerHTML = "$" + ((tax * sub) + sub + shipping).toFixed(2);
+  updateSummary.children[1].children[1].innerHTML = "$" + sub.toFixed(2);
+  updateSummary.children[4].children[1].innerHTML = "$" + ((tax * sub) + sub + shipping).toFixed(2);
   if (tax != 0){
-    updateTax.innerHTML = "$" + (tax * sub).toFixed(2);
+    updateSummary.children[3].children[1].innerHTML = "$" + (tax * sub).toFixed(2);
   }
 
 }
 
-try {
+function otherPrice() {
 
-  function otherPrice() {
+  try {
 
     if (cont.value == "united states") {
       shipping = 10;
@@ -280,12 +271,12 @@ try {
       tax = 0.15;
     }
 
-    updateShipping.innerHTML = "$" + shipping.toFixed(2);
-    updateTax.innerHTML = "$" + (tax * sub).toFixed(2);
+    updateSummary.children[2].children[1].innerHTML = "$" + shipping.toFixed(2);
+    updateSummary.children[3].children[1].innerHTML = "$" + (tax * sub).toFixed(2);
+
+  } catch (e) {
 
   }
-
-} catch (e) {
 
 }
 
