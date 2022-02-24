@@ -10,7 +10,7 @@ var formData = document.forms[0];
 const shipDataArr = [];
 var shippingFormData = document.getElementById('shipping-form');
 var navPick = document.getElementById('navigation').children[0];
-var billingButton = document.getElementById('to-billing');
+var contButton = document.getElementById('continue-to');
 
 try {
   shippingFormData.addEventListener('input', fillShippingForm);
@@ -112,17 +112,34 @@ function shpData(x) {
     var contTo = filledCount == 10 && shipDataArr[7] != "" && verifyData == 2
         || filledCount == 9 && shipDataArr[7] == "" && verifyData == 2;
 
+    var shippingButtonEnable = document.getElementById('to-billing');
+
     if (contTo == true) {
       navPick.children[1].innerHTML = "<a href=\"./billing/\">Billing</a>";
       navPick.children[2].innerHTML = "<a href=\"./payment/\">Payment</a>";
-      billingButton.innerHTML = "<a href=\"./billing/\">Continue to Billing</a>";
+      contButton.innerHTML = "<a href=\"./billing/\">Continue to Billing</a>";
+
+      try {
+        contButton.removeAttribute("disabled");
+      } catch (e) {
+
+      }
 
       localStorage.setItem("localShippingData", shipDataArr);
     }
     else {
       navPick.children[1].innerHTML = "";
       navPick.children[2].innerHTML = ""
-      billingButton.innerHTML = "Continue to Billing";
+      contButton.innerHTML = "Continue to Billing";
+
+      try {
+        contButton.removeAttribute("disabled");
+      } catch (e) {
+
+      }
+
+      contButton.setAttribute("disabled", "true");
+
     }
 
   }
@@ -132,15 +149,32 @@ function shpData(x) {
     var contTo = filledCount == 10 && shipDataArr[7] != "" && verifyData == 2
         || filledCount == 9 && shipDataArr[7] == "" && verifyData == 2;
 
+    var shippingButtonEnable = document.getElementById('to-payment');
+
     if (contTo == true) {
       navPick.children[2].innerHTML = "<a href=\"../payment/\">Payment</a>";
-      billingButton.innerHTML = "<a href=\"../billing/\">Continue to Payment</a>";
+      contButton.innerHTML = "<a href=\"../payment/\">Continue to Payment</a>";
+
+      try {
+        contButton.removeAttribute("disabled");
+      } catch (e) {
+
+      }
 
       localStorage.setItem("localBillingData", shipDataArr);
     }
     else {
       navPick.children[2].innerHTML = ""
-      billingButton.innerHTML = "Continue to Payment";
+      contButton.innerHTML = "Continue to Payment";
+
+      try {
+        contButton.removeAttribute("disabled");
+      } catch (e) {
+
+      }
+
+      contButton.setAttribute("disabled", "true");
+
     }
 
   }
@@ -190,11 +224,25 @@ function payData() {
       paymentDataArr[2].length <= 4 && filledCount == 4) {
     confirmButton.innerHTML = "<a href=\"../billing/\">Confirm Order</a>";
 
+    try {
+      confirmButton.removeAttribute("disabled");
+    } catch (e) {
+
+    }
+
     localStorage.setItem("localPaymentData", paymentDataArr);
   }
 
   else {
     confirmButton.innerHTML = "Confirm Order";
+
+    try {
+      confirmButton.removeAttribute("disabled");
+    } catch (e) {
+
+    }
+
+    confirmButton.setAttribute("disabled", "true");
   }
 
 }
