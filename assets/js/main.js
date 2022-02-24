@@ -4,20 +4,41 @@
 
 var formData = document.forms[0].children[1].children[0];
 var formLength = document.forms[0].length - 1;
+var formType = document.forms[0].id;
+var navPick = document.getElementById('navigation').children[0];
+var contButton = document.getElementById('continue-to');
 
 
 /* <--------------- Shipping Data Storage ---------------> */
 
 const shipDataArr = [];
 
+if (localStorage.localShippingData != undefined && formType == 'shipping-form') {
+  for (let i = 0; i < localStorage.localShippingData.split(",").length; i++) {
+    shipDataArr[i] = localStorage.localShippingData.split(",")[i];
+  }
+
+  for (let i = 0; i < formLength; i++) {
+    formData.children[i].children[1].value = localStorage.localShippingData.split(",")[i];
+  }
+
+  navPick.children[1].innerHTML = "<a href=\"./billing/\">Billing</a>";
+  navPick.children[2].innerHTML = "<a href=\"./payment/\">Payment</a>";
+  contButton.innerHTML = "<a href=\"./billing/\">Continue to Billing</a>";
+
+  try {
+    contButton.removeAttribute("disabled");
+  } catch (e) {
+
+  }
+
+}
+
 try {
   var shippingFormData = document.getElementsByName('shipping-form')[0].children[0];
 } catch (e) {
 
 }
-
-var navPick = document.getElementById('navigation').children[0];
-var contButton = document.getElementById('continue-to');
 
 try {
   shippingFormData.addEventListener('input', fillShippingForm);
@@ -35,7 +56,7 @@ function shpData(x) {
   var verifyData = 0;
 
   try {
-    var checked = document.getElementById('same-as-shipping').checked
+    var checked = document.getElementById('same-as-shipping').checked;
   } catch (e) {
 
   }
@@ -195,6 +216,26 @@ try {
 
 }
 
+if (localStorage.localBillingData != undefined && formType == 'billing-form') {
+  for (let i = 0; i < localStorage.localBillingData.split(",").length; i++) {
+    shipDataArr[i] = localStorage.localBillingData.split(",")[i];
+  }
+
+  for (let i = 1; i < formLength; i++) {
+    formData.children[i].children[1].value = localStorage.localShippingData.split(",")[i-1];
+  }
+
+  navPick.children[2].innerHTML = "<a href=\"../payment/\">Payment</a>";
+  contButton.innerHTML = "<a href=\"../payment/\">Continue to Payment</a>";
+
+  try {
+    contButton.removeAttribute("disabled");
+  } catch (e) {
+
+  }
+
+}
+
 try {
   billingFormData.addEventListener('input', fillBillingForm);
 } catch (e) {
@@ -215,7 +256,24 @@ try {
 
 }
 
-var confirmButton = document.getElementById('to-confirm');
+if (localStorage.localPaymentData != undefined && formType == 'payment-form') {
+  for (let i = 0; i < localStorage.localPaymentData.split(",").length; i++) {
+    shipDataArr[i] = localStorage.localPaymentData.split(",")[i];
+  }
+
+  for (let i = 0; i < formLength; i++) {
+    formData.children[i].children[1].value = localStorage.localPaymentData.split(",")[i];
+  }
+
+  contButton.innerHTML = "<a href=\"../billing/\">Confirm Order</a>";
+
+  try {
+    contButton.removeAttribute("disabled");
+  } catch (e) {
+
+  }
+
+}
 
 try {
   paymentFormData.addEventListener('input', payData);
@@ -237,7 +295,7 @@ function payData() {
   if (paymentDataArr[0].length >= 13 && paymentDataArr[0].length <= 19 &&
       paymentDataArr[1].length == 4 && paymentDataArr[2].length >= 3 &&
       paymentDataArr[2].length <= 4 && filledCount == 4) {
-    confirmButton.innerHTML = "<a href=\"../billing/\">Confirm Order</a>";
+    contButton.innerHTML = "<a href=\"../billing/\">Confirm Order</a>";
 
     try {
       confirmButton.removeAttribute("disabled");
