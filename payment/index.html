@@ -28,14 +28,26 @@
         <header class="page-cmd">
           <h3>Pay With:</h3>
         </header>
-        <label for="c-number">Card Number</label>
-        <input type="number" name="c-number" id="c-number" required="yes" />
-        <label for="exp-date">Expiration Date</label>
-        <input type="number" name="exp-date" id="exp-date" placeholder="MM/YY" required="yes" />
-        <label for="sec-code">Security Code</label>
-        <input type="number" name="sec-code" id="sec-code" placeholder="3 or 4 digit code" required="yes" />
-        <label for="c-name">Name on Card</label>
-        <input type="name" name="c-name" id="c-name" placeholder="John Doe" required="yes" />
+        <fieldset name="payment-form">
+          <ol>
+            <li>
+              <label for="c-number">Card Number</label>
+              <input type="number" name="c-number" id="c-number" required="yes" />
+            </li>
+            <li>
+              <label for="exp-date">Expiration Date</label>
+              <input type="number" name="exp-date" id="exp-date" placeholder="MM/YY" required="yes" />
+            </li>
+            <li>
+              <label for="sec-code">Security Code</label>
+              <input type="number" name="sec-code" id="sec-code" placeholder="3 or 4 digit code" required="yes" />
+            </li>
+            <li>
+              <label for="c-name">Name on Card</label>
+              <input type="name" name="c-name" id="c-name" placeholder="John Doe" required="yes" />
+            </li>
+          </ol>
+        </fieldset>
       </form>
       <aside id="order-info">
         <section id="cart">

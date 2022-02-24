@@ -98,14 +98,19 @@ input, #country-name {
   padding-top: 0.4em;
 }
 
-form {
+fieldset {
   display: flex;
   flex-direction: column;
   padding: 0.8em;
 }
 
+fieldset li{
+  padding-top: 0.5em;
+}
+
 form h3 {
-  padding-left: 0;
+  padding-top: 1em;
+  padding-bottom: 0;
 }
 
 label {
@@ -319,6 +324,19 @@ p {
     text-decoration: none;
     color: rgb(245, 245, 245); /* Light Grey */
   }
+
+}
+
+@media screen and (min-width: 31.25em)  /* 500px = 31.25em */ {
+
+  ol {
+  display: grid;
+  gap: 0.5em;
+  grid-template-columns: 1fr 1fr;
+  }
+
+
+
 
 }
 

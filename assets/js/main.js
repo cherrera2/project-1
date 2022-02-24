@@ -2,13 +2,20 @@
 
 /* <--------------- Global Variables ---------------> */
 
-var formData = document.forms[0];
+var formData = document.forms[0].children[1].children[0];
+var formLength = document.forms[0].length - 1;
 
 
 /* <--------------- Shipping Data Storage ---------------> */
 
 const shipDataArr = [];
-var shippingFormData = document.getElementById('shipping-form');
+
+try {
+  var shippingFormData = document.getElementsByName('shipping-form')[0].children[0];
+} catch (e) {
+
+}
+
 var navPick = document.getElementById('navigation').children[0];
 var contButton = document.getElementById('continue-to');
 
@@ -44,17 +51,17 @@ function shpData(x) {
 
     }
 
-    for (let i = 1; i < formData.length; i++) {
-      formData[i].value = localStorage.localShippingData.split(",")[i-1];
-      formData[i].setAttribute("disabled", "true");
+    for (let i = 1; i < formLength; i++) {
+      formData.children[i].children[1].value = localStorage.localShippingData.split(",")[i-1];
+      formData.children[i].children[1].setAttribute("disabled", "true");
     }
 
   }
 
   else if (checked == false) {
 
-    for (let i = 1; i < formData.length; i++) {
-      shipDataArr[i-1] = formData[i].value;
+    for (let i = 1; i < formLength; i++) {
+      shipDataArr[i-1] = formData.children[i].children[1].value;
 
       if (shipDataArr[i-1] != "") {
         console.log("yes");
@@ -62,9 +69,9 @@ function shpData(x) {
       }
     }
 
-    for (let i = 1; i < formData.length; i++) {
+    for (let i = 1; i < formLength; i++) {
       try {
-        formData[i].removeAttribute("disabled");
+        formData.children[i].children[1].removeAttribute("disabled");
       } catch (e) {
 
       }
@@ -74,8 +81,8 @@ function shpData(x) {
   }
 
   else {
-    for (let i = 0; i < formData.length; i++) {
-      shipDataArr[i] = formData[i].value;
+    for (let i = 0; i < formLength; i++) {
+      shipDataArr[i] = formData.children[i].children[1].value;
 
       if (shipDataArr[i] != "") {
         filledCount++;
@@ -182,8 +189,11 @@ function shpData(x) {
 }
 
 /* <--------------- Billing Data Storage ---------------> */
+try {
+  var billingFormData = document.getElementsByName('billing-form')[0].children[0];
+} catch (e) {
 
-var billingFormData = document.getElementById('billing-form');
+}
 
 try {
   billingFormData.addEventListener('input', fillBillingForm);
@@ -199,7 +209,12 @@ function fillBillingForm() {
 
 const paymentDataArr = [];
 
-var paymentFormData = document.getElementById('payment-form');
+try {
+  var paymentFormData = document.getElementsByName('payment-form')[0].children[0];
+} catch (e) {
+
+}
+
 var confirmButton = document.getElementById('to-confirm');
 
 try {
@@ -211,8 +226,8 @@ try {
 function payData() {
   var filledCount = 0;
 
-  for (let i = 0; i < formData.length; i++) {
-    paymentDataArr[i] = formData[i].value;
+  for (let i = 0; i < formLength; i++) {
+    paymentDataArr[i] = formData.children[i].children[1].value;
 
     if (paymentDataArr[i] != "") {
       filledCount++;
