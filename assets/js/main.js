@@ -144,8 +144,11 @@ function shpData(x) {
 
     if (contTo == true) {
       navPick.children[1].innerHTML = "<a href=\"./billing/\">Billing</a>";
-      navPick.children[2].innerHTML = "<a href=\"./payment/\">Payment</a>";
       contButton.innerHTML = "<a href=\"./billing/\">Continue to Billing</a>";
+
+      if (localStorage.localBillingData != undefined) {
+        navPick.children[2].innerHTML = "<a href=\"./payment/\">Payment</a>";
+      }
 
       try {
         contButton.removeAttribute("disabled");
@@ -265,7 +268,7 @@ if (localStorage.localPaymentData != undefined && formType == 'payment-form') {
     formData.children[i].children[1].value = localStorage.localPaymentData.split(",")[i];
   }
 
-  contButton.innerHTML = "<a href=\"../billing/\">Confirm Order</a>";
+  contButton.innerHTML = "<a href=\"../\">Confirm Order</a>";
 
   try {
     contButton.removeAttribute("disabled");
@@ -295,7 +298,7 @@ function payData() {
   if (paymentDataArr[0].length >= 13 && paymentDataArr[0].length <= 19 &&
       paymentDataArr[1].length == 4 && paymentDataArr[2].length >= 3 &&
       paymentDataArr[2].length <= 4 && filledCount == 4) {
-    contButton.innerHTML = "<a href=\"../billing/\">Confirm Order</a>";
+    contButton.innerHTML = "<a href=\"../\">Confirm Order</a>";
 
     try {
       confirmButton.removeAttribute("disabled");
@@ -319,6 +322,8 @@ function payData() {
   }
 
 }
+
+
 
 /* <--------------- Shopping Cart Manipulation ---------------> */
 
