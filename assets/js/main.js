@@ -298,10 +298,10 @@ function payData() {
   if (paymentDataArr[0].length >= 13 && paymentDataArr[0].length <= 19 &&
       paymentDataArr[1].length == 4 && paymentDataArr[2].length >= 3 &&
       paymentDataArr[2].length <= 4 && filledCount == 4) {
-    contButton.innerHTML = "<a href=\"../\">Confirm Order</a>";
+    contButton.innerHTML = "<a href=\"../confirm\">Continue to Confirmation Page</a>";
 
     try {
-      confirmButton.removeAttribute("disabled");
+      contButton.removeAttribute("disabled");
     } catch (e) {
 
     }
@@ -310,15 +310,15 @@ function payData() {
   }
 
   else {
-    confirmButton.innerHTML = "Confirm Order";
+    contButton.innerHTML = "Confirm Order";
 
     try {
-      confirmButton.removeAttribute("disabled");
+      contButton.removeAttribute("disabled");
     } catch (e) {
 
     }
 
-    confirmButton.setAttribute("disabled", "true");
+    contButton.setAttribute("disabled", "true");
   }
 
 }
