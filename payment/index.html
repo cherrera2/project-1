@@ -24,7 +24,7 @@
       <header id="label-payment">
         <h2>Payment<h2>
       </header>
-      <form id="payment-form" aria-labelledby="label-payment">
+      <form action="../confirm/"id="payment-form" aria-labelledby="label-payment">
         <header class="page-cmd">
           <h3>Pay With:</h3>
         </header>
@@ -48,6 +48,7 @@
             </li>
           </ol>
         </fieldset>
+        <input type="submit" id="submit" value="Continue to Confirmation Page"/>
       </form>
       <aside id="order-info">
         <section id="cart">
@@ -135,7 +136,7 @@
           </header>
         </section>
       </aside>
-      <button id="continue-to" disabled="yes">Continue to Confirmation Page</button>
+      <button id="continue-to" disabled="yes" hidden>Continue to Confirmation Page</button>
     </main>
     <footer id="footer">
       Site copyright Cyrus Herrera 2022

@@ -24,7 +24,7 @@
       <header id="label-billing">
         <h2>Billing<h2>
       </header>
-      <form id="billing-form" aria-labelledby="label-billing">
+      <form action="../payment/" id="billing-form" aria-labelledby="label-billing">
         <header class="page-cmd">
           <h3>Bill To:</h3>
         </header>
@@ -272,6 +272,7 @@
             </li>
           </ol>
         </fieldset>
+        <input type="submit" id="submit" value="Continue to Payment"/>
       </form>
       <aside id="order-info">
         <section id="cart">
@@ -359,7 +360,7 @@
           </header>
         </section>
       </aside>
-      <button id="continue-to" disabled="yes">Continue to Payment</button>
+      <button id="continue-to" disabled="yes" hidden>Continue to Payment</button>
     </main>
     <footer id="footer">
       Site copyright Cyrus Herrera 2022

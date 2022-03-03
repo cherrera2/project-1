@@ -24,7 +24,7 @@
       <header id="label-shipping">
         <h2>Shipping<h2>
       </header>
-      <form id="shipping-form" aria-labelledby="label-shipping">
+      <form action="./billing/" id="shipping-form" aria-labelledby="label-shipping">
         <header class="page-cmd">
           <h3>Ship To:</h3>
         </header>
@@ -268,6 +268,7 @@
             </li>
           </ol>
         </fieldset>
+        <input type="submit" id="submit" value="Continue to Billing"/>
       </form>
       <aside id="order-info">
         <section id="cart">
@@ -355,7 +356,7 @@
           </header>
         </section>
       </aside>
-      <button id="continue-to" disabled="yes">Continue to Billing</button>
+      <button id="continue-to" disabled="yes" hidden>Continue to Billing</button>
     </main>
     <footer id="footer">
       Site copyright Cyrus Herrera 2022
