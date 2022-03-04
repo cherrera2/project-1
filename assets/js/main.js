@@ -8,6 +8,12 @@ var formType = document.forms[0].id;
 var navPick = document.getElementById('navigation').children[0];
 var contButton = document.getElementById('continue-to');
 
+window.addEventListener('load', loadElements);
+
+function loadElements() {
+  document.querySelector('html').className = 'js';
+}
+
 
 /* <--------------- Shipping Data Storage ---------------> */
 
