@@ -124,14 +124,15 @@ label {
 }
 
 .js #bag img {
+  display: block;
   position: absolute;
   top: 1em;
   left: 4em;
-  max-width: 2.5em;
   margin-left: 0.5em;
+  max-width: 2.5em;
 }
 
-#x-button {
+#x-button img{
   display: none;
 }
 
@@ -233,7 +234,7 @@ p {
     padding: 0.457142857em; /* 19.2 / 42 = 0.457142857em */
   }
 
-  #bag img {
+  .js #bag img {
     left: 4.5em;
   }
 
@@ -247,7 +248,7 @@ p {
     padding: 0.512em; /* 19.2 / 37.5 = 0.512em */
   }
 
-  #bag img {
+  .js #bag img {
     left: 7.125em;
     max-width: 1.7em;
     top: 2.75em;
@@ -261,7 +262,7 @@ p {
 
 @media screen and (min-width: 20.625em) /* 330px = 20.625em */ {
 
-  #bag img {
+  .js #bag img {
     left: 0.1em;
     max-width: 2em;
     top: 5.125em;
@@ -308,7 +309,7 @@ p {
 
 @media screen and (min-width: 23.25em) /* 372px = 23.25em */ {
 
-  #bag img {
+  .js #bag img {
     top: 3.25em;
   }
 
@@ -316,7 +317,7 @@ p {
 
 @media screen and (min-width: 26.25em)  /* 420px = 26.25em */ {
 
-  #bag img {
+  .js #bag img {
     top: 3.5em;
   }
 
@@ -393,6 +394,10 @@ p {
     font-size: 0.7999999999999999em; /* 19.2 / 24 = 0.7999999999999999em*/
     padding-bottom: 0.625em; /* 12 / 19.2 = 0.625em */
     padding-left: 1em; /* 19.2 / 19.2 = 1em*/
+  }
+
+  .js .nav-info {
+    justify-content: center;
   }
 
   ul.nav-info {
