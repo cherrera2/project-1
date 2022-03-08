@@ -396,7 +396,29 @@ p {
     padding-left: .5em;
     margin-left: .5em;
     float: right;
-    box-shadow: inset 5px 0 5px -5px #29627e;
+    box-shadow: -0.5em -0.5em rgb(0, 157, 224);
+  }
+
+  .js #bag img {
+    display: none;
+  }
+
+  .js #x-button img {
+    display: none;
+  }
+
+  .js #cart {
+    box-shadow: none;
+    display: block;
+    position:static;
+  }
+
+  .js #cart h3 {
+    text-align:left;
+  }
+
+  .js .items {
+    justify-content: space-around;
   }
 
   form {
