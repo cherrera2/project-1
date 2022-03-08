@@ -340,7 +340,7 @@ const qtyArr = [];
 const qty = document.getElementsByClassName('qty');
 
 var updateCart = document.getElementById('cart');
-var updateSummary = document.getElementById('summary');
+var updateSummary = document.getElementById('price-values');
 var clickBag = document.getElementById('bag').children[0];
 var clickX = document.getElementById('x-button').children[0];
 var cont = document.getElementById('country-name');
@@ -364,8 +364,8 @@ if (localStorage.localQtyData != undefined) {
   }
 }
 
-updateSummary.children[1].children[1].innerHTML = "$" + sub;
-updateSummary.children[4].children[1].innerHTML = "$" + ((tax * sub) + sub + shipping).toFixed(2);
+updateSummary.children[0].children[0].children[1].innerHTML = "$" + sub;
+updateSummary.children[3].children[0].children[1].innerHTML = "$" + ((tax * sub) + sub + shipping).toFixed(2);
 
 if (tax != 0){
   updateSummary.children[3].children[1].innerHTML = "$" + (tax * sub).toFixed(2);
@@ -386,10 +386,10 @@ function updateQty() {
 
   localStorage.setItem("localQtyData", qtyArr);
 
-  updateSummary.children[1].children[1].innerHTML = "$" + sub.toFixed(2);
-  updateSummary.children[4].children[1].innerHTML = "$" + ((tax * sub) + sub + shipping).toFixed(2);
+  updateSummary.children[0].children[0].children[1].innerHTML = "$" + sub.toFixed(2);
+  updateSummary.children[3].children[0].children[1].innerHTML = "$" + ((tax * sub) + sub + shipping).toFixed(2);
   if (tax != 0){
-    updateSummary.children[3].children[1].innerHTML = "$" + (tax * sub).toFixed(2);
+    updateSummary.children[2].children[0].children[1].innerHTML = "$" + (tax * sub).toFixed(2);
   }
 
 }
@@ -417,8 +417,8 @@ function otherPrice() {
       tax = 0.15;
     }
 
-    updateSummary.children[2].children[1].innerHTML = "$" + shipping.toFixed(2);
-    updateSummary.children[3].children[1].innerHTML = "$" + (tax * sub).toFixed(2);
+    updateSummary.children[1].children[0].children[1].innerHTML = "$" + shipping.toFixed(2);
+    updateSummary.children[2].children[0].children[1].innerHTML = "$" + (tax * sub).toFixed(2);
 
   } catch (e) {
 
