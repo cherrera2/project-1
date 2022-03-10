@@ -3,7 +3,7 @@
 /* <--------------- Global Variables ---------------> */
 
 var formData = document.forms[0].children[1].children[0];
-var formLength = document.forms[0].length - 1;
+var formLength = document.forms[0].length - 2;
 var formType = document.forms[0].id;
 var navPick = document.getElementById('navigation').children[0];
 var contButton = document.getElementById('continue-to');
@@ -28,9 +28,9 @@ if (localStorage.localShippingData != undefined && formType == 'shipping-form') 
     formData.children[i].children[1].value = localStorage.localShippingData.split(",")[i];
   }
 
-  navPick.children[1].innerHTML = "<a href=\"./billing/\">Billing</a>";
-  navPick.children[2].innerHTML = "<a href=\"./payment/\">Payment</a>";
-  contButton.innerHTML = "<a href=\"./billing/\">Continue to Billing</a>";
+  navPick.children[1].innerHTML = "<a href=\"billing/\">Billing</a>";
+  navPick.children[2].innerHTML = "<a href=\"payment/\">Payment</a>";
+  contButton.innerHTML = "<a href=\"billing/\">Continue to Billing</a>";
 
   try {
     contButton.removeAttribute("disabled");
