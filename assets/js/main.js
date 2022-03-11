@@ -5,8 +5,8 @@
 var formData = document.forms[0].children[1].children[0];
 var formLength = document.forms[0].length - 2;
 var formType = document.forms[0].id;
-var navPick = document.getElementById('navigation').children[0];
-var contButton = document.getElementById('continue-to');
+var navPick = document.querySelector('nav').children[0];
+var contButton = document.querySelector('button');
 
 window.addEventListener('load', loadElements);
 
@@ -41,7 +41,7 @@ if (localStorage.localShippingData != undefined && formType == 'shipping-form') 
 }
 
 try {
-  var shippingFormData = document.getElementsByName('shipping-form')[0].children[0];
+  var shippingFormData = document.querySelector('#shipping-form')[0].children[0];
 } catch (e) {
 
 }
@@ -62,7 +62,7 @@ function shpData(x) {
   var verifyData = 0;
 
   try {
-    var checked = document.getElementById('same-as-shipping').checked;
+    var checked = document.querySelector('#same-as-shipping').checked;
   } catch (e) {
 
   }
@@ -146,7 +146,7 @@ function shpData(x) {
     var contTo = filledCount == 10 && shipDataArr[7] != "" && verifyData == 2
         || filledCount == 9 && shipDataArr[7] == "" && verifyData == 2;
 
-    var shippingButtonEnable = document.getElementById('to-billing');
+    var shippingButtonEnable = document.querySelector('#to-billing');
 
     if (contTo == true) {
       navPick.children[1].innerHTML = "<a href=\"./billing/\">Billing</a>";
@@ -186,7 +186,7 @@ function shpData(x) {
     var contTo = filledCount == 10 && shipDataArr[7] != "" && verifyData == 2
         || filledCount == 9 && shipDataArr[7] == "" && verifyData == 2;
 
-    var shippingButtonEnable = document.getElementById('to-payment');
+    var shippingButtonEnable = document.querySelector('#to-payment');
 
     if (contTo == true) {
       navPick.children[2].innerHTML = "<a href=\"../payment/\">Payment</a>";
@@ -220,7 +220,7 @@ function shpData(x) {
 
 /* <--------------- Billing Data Storage ---------------> */
 try {
-  var billingFormData = document.getElementsByName('billing-form')[0].children[0];
+  var billingFormData = document.querySelector('#billing-form')[0].children[0];
 } catch (e) {
 
 }
@@ -333,17 +333,17 @@ function payData() {
 
 /* <--------------- Shopping Cart Manipulation ---------------> */
 
-const strPrice = document.getElementsByClassName('price');
+const strPrice = document.querySelector('.price');
 const normPrice = [];
 const updatePrice = [];
 const qtyArr = [];
-const qty = document.getElementsByClassName('qty');
+const qty = document.querySelector('.qty');
 
-var updateCart = document.getElementById('cart');
-var updateSummary = document.getElementById('price-values');
-var clickBag = document.getElementById('bag').children[0];
-var clickX = document.getElementById('x-button').children[0];
-var cont = document.getElementById('country-name');
+var updateCart = document.querySelector('#cart');
+var updateSummary = document.querySelector('#price-values');
+var clickBag = document.querySelector('#bag').children[0];
+var clickX = document.querySelector('#x-button').children[0];
+var cont = document.querySelector('#country-name');
 
 var sub = 0;
 var shipping = 0;
@@ -430,9 +430,9 @@ clickBag.addEventListener('click', openCart);
 clickX.addEventListener('click', closeCart);
 
 function openCart() {
-  document.getElementById('cart').style.display = "block";
+  document.querySelector('#cart').style.display = "block";
 }
 
 function closeCart() {
-  document.getElementById('cart').style.display = "none";
+  document.querySelector('#cart').style.display = "none";
 }
