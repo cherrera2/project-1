@@ -8,11 +8,7 @@ var formType = document.forms[0].id;
 var navPick = document.querySelector('nav').children[0];
 var contButton = document.querySelector('button');
 
-window.addEventListener('load', loadElements);
-
-function loadElements() {
-  document.querySelector('html').className = 'js';
-}
+document.querySelector('html').className = 'js';
 
 
 /* <--------------- Shipping Data Storage ---------------> */
@@ -398,17 +394,17 @@ function otherPrice() {
 
   try {
 
-    if (cont.value == "united states") {
+    if (cont.value == "United States") {
       shipping = 10;
       tax = 0.08;
     }
 
-    else if (cont.value == "canada") {
+    else if (cont.value == "Canada") {
       shipping = 15;
       tax = 0.10;
     }
 
-    else if (cont.value == "united kingdom") {
+    else if (cont.value == "United Kingdom") {
       shipping = 20;
       tax = 0.12;
     }
