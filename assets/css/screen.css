@@ -259,33 +259,33 @@ label {
   padding-top: 0.4em;
 }
 
-#bag img {
+#bag input {
   display: none;
 }
 
-.js #bag img {
+.js #bag input {
   display: block;
   position: absolute;
-  top: 1em;
+  top: 4em;
   left: 4em;
-  margin-left: 0.5em;
-  max-width: 2.5em;
+  margin-left: 4em;
+  max-width: 5em;
 }
 
-#x-button img{
+#x-button input{
   display: none;
 }
 
-.js #x-button img {
+.js #x-button input {
   display: flex;
   justify-content: flex-end;
-  max-width: 1em;
+  max-width: 4em;
   position: absolute;
   top: 1.25em;
   left: 1.25em;
 }
 
-img:hover {
+input:hover {
   cursor: pointer;
   opacity: 0.5;
 }
@@ -374,8 +374,8 @@ p {
     padding: 0.457142857em; /* 19.2 / 42 = 0.457142857em */
   }
 
-  .js #bag img {
-    left: 4.5em;
+  .js #bag input {
+    left: 6em;
   }
 
 }
@@ -388,10 +388,10 @@ p {
     padding: 0.512em; /* 19.2 / 37.5 = 0.512em */
   }
 
-  .js #bag img {
-    left: 7.125em;
-    max-width: 1.7em;
-    top: 2.75em;
+  .js #bag input {
+    left: 9.75em;
+    max-width: 4em;
+    top: 4.75em;
   }
 
   #conetent {
@@ -402,10 +402,10 @@ p {
 
 @media screen and (min-width: 20.625em) /* 330px = 20.625em */ {
 
-  .js #bag img {
-    left: 0.1em;
-    max-width: 2em;
-    top: 5.125em;
+  .js #bag input {
+    left: -3.5em;
+    max-width: 5em;
+    top: 9.25em;
   }
 
   .js #cart {
@@ -449,16 +449,16 @@ p {
 
 @media screen and (min-width: 23.25em) /* 372px = 23.25em */ {
 
-  .js #bag img {
-    top: 3.25em;
+  .js #bag input {
+    top: 5.25em;
   }
 
 }
 
 @media screen and (min-width: 26.25em)  /* 420px = 26.25em */ {
 
-  .js #bag img {
-    top: 3.5em;
+  .js #bag input {
+    top: 6em;
   }
 
   h3 {
@@ -539,11 +539,11 @@ p {
     box-shadow: -0.5em -0.5em rgb(0, 157, 224);
   }
 
-  .js #bag img {
+  .js #bag input {
     display: none;
   }
 
-  .js #x-button img {
+  .js #x-button input {
     display: none;
   }
 
