@@ -9,6 +9,7 @@ var navPick = document.querySelector('nav').children[0];
 var contButton = document.querySelector('button');
 
 document.querySelector('html').className = 'js';
+document.querySelectorAll('qty').removeAttribute = 'hidden';
 
 
 /* <--------------- Shipping Data Storage ---------------> */
@@ -329,17 +330,17 @@ function payData() {
 
 /* <--------------- Shopping Cart Manipulation ---------------> */
 
-const strPrice = document.querySelector('.price');
+const strPrice = document.querySelectorAll('.price');
 const normPrice = [];
 const updatePrice = [];
 const qtyArr = [];
-const qty = document.querySelector('.qty');
+const qty = document.querySelectorAll('.qty');
 
 var updateCart = document.querySelector('#cart');
 var updateSummary = document.querySelector('#price-values');
 var clickBag = document.querySelector('#bag').children[0];
 var clickX = document.querySelector('#x-button').children[0];
-var cont = document.querySelector('#country-name');
+var cont = "";
 
 var sub = 0;
 var shipping = 0;
@@ -352,6 +353,7 @@ for (let i = 0; i < strPrice.length; i++) {
 }
 
 if (localStorage.localQtyData != undefined) {
+  var sub = 0;
   for (let i = 0; i < strPrice.length; i++) {
     qty[i].value = localStorage.localQtyData.split(",")[i];
     updatePrice[i] = normPrice[i] * parseInt(qty[i].value);
@@ -360,16 +362,26 @@ if (localStorage.localQtyData != undefined) {
   }
 }
 
-updateSummary.children[0].children[0].children[1].innerHTML = "$" + sub;
-updateSummary.children[3].children[0].children[1].innerHTML = "$" + ((tax * sub) + sub + shipping).toFixed(2);
+if (localStorage.localShippingData != undefined) {
+  cont = localStorage.localShippingData.split(",")[2];
+  otherPrice();
+}
 
-if (tax != 0){
-  updateSummary.children[3].children[1].innerHTML = "$" + (tax * sub).toFixed(2);
+if (localStorage.localPriceData != undefined) {
+
+  updateSummary.children[0].children[0].children[1].innerHTML = "$" + parseFloat(localStorage.localPriceData.split(",")[0]).toFixed(2);
+  updateSummary.children[1].children[0].children[1].innerHTML = "$" + parseFloat(localStorage.localPriceData.split(",")[1]).toFixed(2);
+  updateSummary.children[2].children[0].children[1].innerHTML = "$" + parseFloat(localStorage.localPriceData.split(",")[2]).toFixed(2);
+  updateSummary.children[3].children[0].children[1].innerHTML = "$" + parseFloat(localStorage.localPriceData.split(",")[3]).toFixed(2);
 }
 
 updateCart.addEventListener('input', updateQty);
 
-formData.addEventListener('input', otherPrice)
+try {
+  shippingFormData.addEventListener('input', otherPrice)
+} catch (e) {
+
+}
 
 function updateQty() {
   sub = 0;
@@ -392,29 +404,59 @@ function updateQty() {
 
 function otherPrice() {
 
+
+console.log("hi");
+
+const localPricesArr = []
+
+if (cont == "") {
+  cont = document.querySelector('#shipping-form #country-name').value;
+}
+
   try {
 
-    if (cont.value == "United States") {
+    if (cont == "United States") {
       shipping = 10;
       tax = 0.08;
     }
 
-    else if (cont.value == "Canada") {
+    else if (cont == "Canada") {
       shipping = 15;
       tax = 0.10;
     }
 
-    else if (cont.value == "United Kingdom") {
+    else if (cont == "United Kingdom") {
       shipping = 20;
       tax = 0.12;
     }
+
+    else if (cont == "" || cont == null) {
+      shipping = 0;
+      tax = 0;
+    }
+
     else {
       shipping = 30;
       tax = 0.15;
     }
 
-    updateSummary.children[1].children[0].children[1].innerHTML = "$" + shipping.toFixed(2);
-    updateSummary.children[2].children[0].children[1].innerHTML = "$" + (tax * sub).toFixed(2);
+    updateSummary.children[0].children[0].children[1].innerHTML = "$" + sub;
+
+    if (tax != 0 && shipping != 0) {
+      updateSummary.children[1].children[0].children[1].innerHTML = "$" + shipping.toFixed(2);
+      updateSummary.children[2].children[0].children[1].innerHTML = "$" + (tax * sub).toFixed(2);
+    }
+
+    updateSummary.children[3].children[0].children[1].innerHTML = "$" + ((tax * sub) + sub + shipping).toFixed(2);
+
+    localPricesArr[0] = sub;
+    localPricesArr[1] = shipping;
+    localPricesArr[2] = tax * sub;
+    localPricesArr[3] = ((tax * sub) + sub + shipping);
+
+    updateQty();
+
+    localStorage.setItem("localPriceData", localPricesArr);
 
   } catch (e) {
 

@@ -40,7 +40,8 @@
             </li>
             <li>
               <label for="country-name">Country</label>
-              <datalist type="country-name" name="country-name" id="country-name" required="yes">
+              <input list="names-of-countries" type="country-name" name="country-name" id="country-name" required="yes" />
+              <datalist id="names-of-countries">
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Albania">Albania</option>
                 <option value="Algeria">Algeria</option>
@@ -263,7 +264,7 @@
             </li>
             <li>
               <label for="tel-national">Phone Number</label>
-              <input type="tel-national" name="tel-national" id="tel-national" placeholder="555-555-5555" required="yes" />
+              <input type="tel" name="tel-national" id="tel-national" placeholder="555-555-5555" required="yes" />
             </li>
           </ol>
         </fieldset>
@@ -282,7 +283,7 @@
                   <h4>Apple</h4>
                 </header>
                 <p class="price">$0.99</p>
-                <select hidden name="qty" class="qty">
+                <select name="qty" class="qty">
                   <option value=1>1</option>
                   <option value=2>2</option>
                   <option value=3>3</option>
@@ -301,7 +302,7 @@
                   <h4>Hammer</h4>
                 </header>
                 <p class="price">$10.99</p>
-                <select hidden name="qty" class="qty">
+                <select name="qty" class="qty">
                   <option value=1>1</option>
                   <option value=2>2</option>
                   <option value=3>3</option>
@@ -320,7 +321,7 @@
                   <h4>Clock</h4>
                 </header>
                 <p class="price">$4.95</p>
-                <select hidden name="qty" class="qty">
+                <select name="qty" class="qty">
                   <option value=1>1</option>
                   <option value=2>2</option>
                   <option value=3>3</option>
