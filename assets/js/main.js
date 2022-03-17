@@ -7,10 +7,22 @@ var formLength = document.forms[0].length - 2;
 var formType = document.forms[0].id;
 var navPick = document.querySelector('nav').children[0];
 var contButton = document.querySelector('button');
+const qty = document.querySelectorAll('.qty');
 
 document.querySelector('html').className = 'js';
-document.querySelectorAll('qty').removeAttribute = 'hidden';
 
+if (formType == 'shipping-form') {
+  navPick.children[1].innerHTML = "";
+  navPick.children[2].innerHTML = "";
+}
+
+else if (formType == 'billing-form') {
+  navPick.children[2].innerHTML = "";
+}
+
+for (var i = 0; i < qty.length; i++) {
+  qty[i].removeAttribute("hidden");
+}
 
 /* <--------------- Shipping Data Storage ---------------> */
 
@@ -86,11 +98,6 @@ function shpData(x) {
 
     for (let i = 1; i < formLength; i++) {
       shipDataArr[i-1] = formData.children[i].children[1].value;
-
-      if (shipDataArr[i-1] != "") {
-        console.log("yes");
-        filledCount++;
-      }
     }
 
     for (let i = 1; i < formLength; i++) {
@@ -118,7 +125,7 @@ function shpData(x) {
   var atIndex = shipDataArr[1].indexOf("@");
   var dotIndex = shipDataArr[1].indexOf(".");
 
-  if (atIndex > 0 && dotIndex > atIndex && dotIndex != atIndex + 1){
+  if (!= atIndex + 1){
     verifyData++;
   }
 
@@ -140,8 +147,7 @@ function shpData(x) {
 
   if(type == "shipping") {
 
-    var contTo = filledCount == 10 && shipDataArr[7] != "" && verifyData == 2
-        || filledCount == 9 && shipDataArr[7] == "" && verifyData == 2;
+    var contTo = verifyData == 2;
 
     var shippingButtonEnable = document.querySelector('#to-billing');
 
@@ -163,7 +169,7 @@ function shpData(x) {
     }
     else {
       navPick.children[1].innerHTML = "";
-      navPick.children[2].innerHTML = ""
+      navPick.children[2].innerHTML = "";
       contButton.innerHTML = "Continue to Billing";
 
       try {
@@ -180,8 +186,7 @@ function shpData(x) {
 
   else if (type == "billing") {
 
-    var contTo = filledCount == 10 && shipDataArr[7] != "" && verifyData == 2
-        || filledCount == 9 && shipDataArr[7] == "" && verifyData == 2;
+    var contTo = verifyData == 2;
 
     var shippingButtonEnable = document.querySelector('#to-payment');
 
@@ -334,7 +339,6 @@ const strPrice = document.querySelectorAll('.price');
 const normPrice = [];
 const updatePrice = [];
 const qtyArr = [];
-const qty = document.querySelectorAll('.qty');
 
 var updateCart = document.querySelector('#cart');
 var updateSummary = document.querySelector('#price-values');
