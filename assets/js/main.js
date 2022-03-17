@@ -125,7 +125,7 @@ function shpData(x) {
   var atIndex = shipDataArr[1].indexOf("@");
   var dotIndex = shipDataArr[1].indexOf(".");
 
-  if (!= atIndex + 1){
+  if (dotIndex != atIndex + 1){
     verifyData++;
   }
 
@@ -350,6 +350,14 @@ var sub = 0;
 var shipping = 0;
 var tax = 0;
 
+window.addEventListener('resize', displayCart)
+
+function displayCart() {
+  if (window.matchMedia('(min-width: 45em)').matches) {
+    updateCart.style.display = "block";
+  }
+}
+
 for (let i = 0; i < strPrice.length; i++) {
   normPrice[i] = parseFloat(strPrice[i].innerHTML.replace("$", ""));
   updatePrice[i] = normPrice[i]
@@ -472,9 +480,9 @@ clickBag.addEventListener('click', openCart);
 clickX.addEventListener('click', closeCart);
 
 function openCart() {
-  document.querySelector('#cart').style.display = "block";
+  updateCart.style.display = "block";
 }
 
 function closeCart() {
-  document.querySelector('#cart').style.display = "none";
+  updateCart.style.display = "none";
 }
