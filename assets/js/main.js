@@ -9,6 +9,8 @@ var navPick = document.querySelector('nav').children[0];
 var contButton = document.querySelector('#submit');
 const qty = document.querySelectorAll('.qty');
 
+formData.children[0].children[0].removeAttribute("hidden");
+formData.children[0].children[1].removeAttribute("hidden");
 contButton.setAttribute("disabled", "true");
 
 document.querySelector('html').className = 'js';

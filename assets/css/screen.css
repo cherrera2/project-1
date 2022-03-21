@@ -636,9 +636,21 @@ p {
     line-height: 1.2em; /* 36 / 30 = 1.2em */
   }
 
-  #footer {
+  footer {
     position: absolute;
     top: 67em;
+  }
+
+  footer.billing {
+    top: 69em;
+  }
+
+  .js footer.billing {
+    top: 72em;
+  }
+
+  footer.payment {
+    top: 47em;
   }
 
   #submit {
@@ -651,7 +663,7 @@ p {
   }
 
   #billing-form #submit {
-    margin-top: -29.25em;
+    margin-top: -22.75em;
   }
 
   .js #billing-form #submit {
