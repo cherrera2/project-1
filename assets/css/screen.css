@@ -50,43 +50,6 @@ footer {
   padding-left: 1.5625em; /* 19.2 / 12.288 = 1.5625em */
 }
 
-button {
-  position: absolute;
-  right: 1.45em;
-  margin-top: -2em;
-}
-
-button a {
-  background-color: rgb(0, 157, 224);
-  border: 0.1em solid rgb(59, 59, 59);
-  border-radius: 0.25em;
-  color: rgb(245, 245, 245); /* Light Grey */
-  display: block;
-  padding: 0.25em; /* 15.36 / 19.2 = 0.8*/
-  text-decoration: none;
-}
-
-button a:hover {
-  background-color: rgb(12, 115, 247);
-}
-
-button:disabled {
-  background-color: rgb(196, 196, 196);
-  border: 0.1em solid rgb(59, 59, 59);
-  color: rgb(59, 59, 59);
-  padding: 0.25em;
-  border-radius: 0.25em;
-}
-
-button:not(disabled) {
-  background-color: none;
-  color: none;
-  border: 0;
-  border-radius: 0;
-  padding: 0;
-
-}
-
 * {
   box-sizing: border-box;
 }
