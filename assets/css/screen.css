@@ -374,6 +374,21 @@ p {
   width: 11em;
 }
 
+#submit:disabled {
+  background-color: grey;
+  color: black;
+}
+
+#submit:disabled:hover {
+  background-color: grey;
+  color: black;
+  cursor:auto;
+}
+
+#submit:disabled:active {
+  opacity: 100%;
+}
+
 #submit:hover {
   background-color: rgb(12, 115, 247);
   color: white;

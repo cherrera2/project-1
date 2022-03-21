@@ -6,8 +6,10 @@ var formData = document.forms[0].children[1].children[0];
 var formLength = document.forms[0].length - 2;
 var formType = document.forms[0].id;
 var navPick = document.querySelector('nav').children[0];
-var contButton = document.querySelector('button');
+var contButton = document.querySelector('#submit');
 const qty = document.querySelectorAll('.qty');
+
+contButton.setAttribute("disabled", "true");
 
 document.querySelector('html').className = 'js';
 
@@ -39,7 +41,6 @@ if (localStorage.localShippingData != undefined && formType == 'shipping-form') 
 
   navPick.children[1].innerHTML = "<a href=\"billing/\">Billing</a>";
   navPick.children[2].innerHTML = "<a href=\"payment/\">Payment</a>";
-  contButton.innerHTML = "<a href=\"billing/\">Continue to Billing</a>";
 
   try {
     contButton.removeAttribute("disabled");
@@ -149,11 +150,8 @@ function shpData(x) {
 
     var contTo = verifyData == 2;
 
-    var shippingButtonEnable = document.querySelector('#to-billing');
-
     if (contTo == true) {
       navPick.children[1].innerHTML = "<a href=\"./billing/\">Billing</a>";
-      contButton.innerHTML = "<a href=\"./billing/\">Continue to Billing</a>";
 
       if (localStorage.localBillingData != undefined) {
         navPick.children[2].innerHTML = "<a href=\"./payment/\">Payment</a>";
@@ -170,7 +168,6 @@ function shpData(x) {
     else {
       navPick.children[1].innerHTML = "";
       navPick.children[2].innerHTML = "";
-      contButton.innerHTML = "Continue to Billing";
 
       try {
         contButton.removeAttribute("disabled");
@@ -188,11 +185,8 @@ function shpData(x) {
 
     var contTo = verifyData == 2;
 
-    var shippingButtonEnable = document.querySelector('#to-payment');
-
     if (contTo == true) {
       navPick.children[2].innerHTML = "<a href=\"../payment/\">Payment</a>";
-      contButton.innerHTML = "<a href=\"../payment/\">Continue to Payment</a>";
 
       try {
         contButton.removeAttribute("disabled");
@@ -204,7 +198,6 @@ function shpData(x) {
     }
     else {
       navPick.children[2].innerHTML = ""
-      contButton.innerHTML = "Continue to Payment";
 
       try {
         contButton.removeAttribute("disabled");
@@ -237,7 +230,6 @@ if (localStorage.localBillingData != undefined && formType == 'billing-form') {
   }
 
   navPick.children[2].innerHTML = "<a href=\"../payment/\">Payment</a>";
-  contButton.innerHTML = "<a href=\"../payment/\">Continue to Payment</a>";
 
   try {
     contButton.removeAttribute("disabled");
@@ -276,8 +268,6 @@ if (localStorage.localPaymentData != undefined && formType == 'payment-form') {
     formData.children[i].children[1].value = localStorage.localPaymentData.split(",")[i];
   }
 
-  contButton.innerHTML = "<a href=\"../\">Confirm Order</a>";
-
   try {
     contButton.removeAttribute("disabled");
   } catch (e) {
@@ -306,7 +296,6 @@ function payData() {
   if (paymentDataArr[0].length >= 13 && paymentDataArr[0].length <= 19 &&
       paymentDataArr[1].length == 4 && paymentDataArr[2].length >= 3 &&
       paymentDataArr[2].length <= 4 && filledCount == 4) {
-    contButton.innerHTML = "<a href=\"../confirm\">Continue to Confirmation Page</a>";
 
     try {
       contButton.removeAttribute("disabled");
@@ -318,7 +307,6 @@ function payData() {
   }
 
   else {
-    contButton.innerHTML = "Confirm Order";
 
     try {
       contButton.removeAttribute("disabled");
