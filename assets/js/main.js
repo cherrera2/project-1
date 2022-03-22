@@ -359,7 +359,7 @@ window.addEventListener('resize', displayCart)
 function displayCart() {
   if (window.matchMedia('(min-width: 45em)').matches) {
     try {
-      updateCart.style.display = "block";
+      updateCart.className = 'open';
     } catch (e) {
 
     }
@@ -497,11 +497,11 @@ try {
 }
 
 function openCart() {
-  updateCart.style.display = "block";
+  updateCart.className = 'open';
 }
 
 function closeCart() {
-  updateCart.style.display = "none";
+  updateCart.className = 'closed';
 }
 
 /* <--------------- Confirm Data ---------------> */

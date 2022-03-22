@@ -273,6 +273,14 @@ label {
   padding-top: 2.5em;
 }
 
+.js #cart.open {
+  display: block;
+}
+
+.js #cart.closed {
+  display: none;
+}
+
 .js #cart h3 {
   font-size: 1.25em; /* 30 / 24 = 1.25em */
   line-height: 1.2em; /* 36 / 30 = 1.2em */
