@@ -11,8 +11,6 @@ if (document.querySelector("#order-info").className != "confirm"){
   var formData = document.forms[0].children[1].children[0];
   var formLength = document.forms[0].length - 2;
   var formType = document.forms[0].id;
-  formData.children[0].children[0].removeAttribute("hidden");
-  formData.children[0].children[1].removeAttribute("hidden");
 }
 
 else {
@@ -26,6 +24,9 @@ if (formType == 'shipping-form') {
 
 else if (formType == 'billing-form') {
   navPick.children[2].innerHTML = "";
+  formData.children[0].children[0].removeAttribute("hidden");
+  formData.children[0].children[1].removeAttribute("hidden");
+  formData.children[0].setAttribute("aria-hidden", "false");
 }
 
   for (var i = 0; i < qty.length; i++) {
@@ -346,10 +347,11 @@ try {
 
 }
 var cont = "";
-
 var sub = 0;
 var shipping = 0;
 var tax = 0;
+
+updateCart.setAttribute("aria-hidden", "true")
 
 for (var i = 0; i < strPrice.length; i++) {
   priceArr[i] = parseFloat(strPrice[i].innerHTML.replace("$", ""));
@@ -362,6 +364,7 @@ window.addEventListener('resize', displayCart)
 function displayCart() {
   if (window.matchMedia('(min-width: 45em)').matches) {
     try {
+      updateCart.setAttribute("aria-hidden", "false")
       updateCart.className = 'open';
     } catch (e) {
 
@@ -500,10 +503,12 @@ try {
 }
 
 function openCart() {
+  updateCart.setAttribute("aria-hidden", "false")
   updateCart.className = 'open';
 }
 
 function closeCart() {
+  updateCart.setAttribute("aria-hidden", "true")
   updateCart.className = 'closed';
 }
 

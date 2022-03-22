@@ -21,7 +21,7 @@
       <figure id="bag">
         <input type="image" src="assets/images/bag.png" alt="View shopping cart"/>
       </figure>
-      <header id="label-shipping">
+      <header id="label-shipping" aria-label="Shipping">
         <h2>Shipping<h2>
       </header>
       <form action="billing/" id="shipping-form" aria-labelledby="label-shipping">
@@ -41,7 +41,7 @@
             <li>
               <label for="country-name">Country</label>
               <input list="names-of-countries" type="country-name" name="country-name" id="country-name" required="yes" />
-              <datalist id="names-of-countries">
+              <datalist id="names-of-countries" aria-hidden="true">
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Albania">Albania</option>
                 <option value="Algeria">Algeria</option>
@@ -271,7 +271,7 @@
         <input type="submit" id="submit" value="Continue to Billing"/>
       </form>
       <aside id="order-info">
-        <section id="cart">
+        <section id="cart" aria-hidden="false">
           <h3>Cart</h3>
           <figure id="x-button">
             <input type="image" src="assets/images/x-button.png" alt="View shopping cart"/>
