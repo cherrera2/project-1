@@ -4,10 +4,11 @@
 
 var navPick = document.querySelector('nav').children[0];
 var contButton = document.querySelector('#submit');
+var confirmPage = document.querySelector("#order-info").className
 const qty = document.querySelectorAll('.qty');
 contButton.setAttribute("disabled", "true");
 
-if (document.querySelector("#order-info").className != "confirm"){
+if (confirmPage != "confirm"){
   var formData = document.forms[0].children[1].children[0];
   var formLength = document.forms[0].length - 2;
   var formType = document.forms[0].id;
@@ -328,8 +329,6 @@ function payData() {
 
 }
 
-
-
 /* <--------------- Shopping Cart Manipulation ---------------> */
 
 const strPrice = document.querySelectorAll('.price');
@@ -343,6 +342,7 @@ var updateSummary = document.querySelector('#price-values');
 try {
   var clickBag = document.querySelector('#bag').children[0];
   var clickX = document.querySelector('#x-button').children[0];
+  updateCart.setAttribute("aria-hidden", "true")
 } catch (e) {
 
 }
@@ -351,13 +351,12 @@ var sub = 0;
 var shipping = 0;
 var tax = 0;
 
-updateCart.setAttribute("aria-hidden", "true")
-
-for (var i = 0; i < strPrice.length; i++) {
-  priceArr[i] = parseFloat(strPrice[i].innerHTML.replace("$", ""));
+if (confirmPage != "confirm") {
+  for (var i = 0; i < strPrice.length; i++) {
+    priceArr[i] = parseFloat(strPrice[i].innerHTML.replace("$", ""));
+  }
+  localStorage.setItem("localNormPriceData", priceArr);
 }
-
-localStorage.setItem("localNormPriceData", priceArr);
 
 window.addEventListener('resize', displayCart)
 
@@ -378,7 +377,7 @@ for (let i = 0; i < strPrice.length; i++) {
   sub += updatePrice[i]
 }
 
-if (localStorage.localQtyData != undefined) {
+if (localStorage.localQtyData != undefined && confirmPage != "confirm") {
   try {
     var sub = 0;
     for (let i = 0; i < strPrice.length; i++) {
@@ -418,79 +417,84 @@ try {
 }
 
 function updateQty() {
-  sub = 0;
-  for (let i = 0; i < qty.length; i++) {
-    updatePrice[i] = normPrice[i] * parseInt(qty[i].value);
-    strPrice[i].innerHTML = "$" + updatePrice[i].toFixed(2);
-    qtyArr[i] = qty[i].value;
-    sub += updatePrice[i]
-  }
 
-  localStorage.setItem("localQtyData", qtyArr);
+  if (confirmPage != "confirm") {
+    sub = 0;
+    for (let i = 0; i < qty.length; i++) {
+      updatePrice[i] = normPrice[i] * parseInt(qty[i].value);
+      strPrice[i].innerHTML = "$" + updatePrice[i].toFixed(2);
+      qtyArr[i] = qty[i].value;
+      sub += updatePrice[i]
+    }
 
-  updateSummary.children[0].children[0].children[1].innerHTML = "$" + sub.toFixed(2);
-  updateSummary.children[3].children[0].children[1].innerHTML = "$" + ((tax * sub) + sub + shipping).toFixed(2);
-  if (tax != 0){
-    updateSummary.children[2].children[0].children[1].innerHTML = "$" + (tax * sub).toFixed(2);
+    localStorage.setItem("localQtyData", qtyArr);
+
+    updateSummary.children[0].children[0].children[1].innerHTML = "$" + sub.toFixed(2);
+    updateSummary.children[3].children[0].children[1].innerHTML = "$" + ((tax * sub) + sub + shipping).toFixed(2);
+    if (tax != 0){
+      updateSummary.children[2].children[0].children[1].innerHTML = "$" + (tax * sub).toFixed(2);
+    }
   }
 
 }
 
 function otherPrice() {
 
-  const localPricesArr = []
+  if (confirmPage != "confirm") {
+    const localPricesArr = []
 
-  if (cont == "") {
-    cont = document.querySelector('#shipping-form #country-name').value;
-  }
-
-  try {
-
-    if (cont == "United States") {
-      shipping = 10;
-      tax = 0.08;
+    if (cont == "") {
+      cont = document.querySelector('#shipping-form #country-name').value;
     }
 
-    else if (cont == "Canada") {
-      shipping = 15;
-      tax = 0.10;
+    try {
+
+      if (cont == "United States") {
+        shipping = 10;
+        tax = 0.08;
+      }
+
+      else if (cont == "Canada") {
+        shipping = 15;
+        tax = 0.10;
+      }
+
+      else if (cont == "United Kingdom") {
+        shipping = 20;
+        tax = 0.12;
+      }
+
+      else if (cont == "" || cont == null) {
+        shipping = 0;
+        tax = 0;
+      }
+
+      else {
+        shipping = 30;
+        tax = 0.15;
+      }
+
+      updateSummary.children[0].children[0].children[1].innerHTML = "$" + sub;
+
+      if (tax != 0 && shipping != 0) {
+        updateSummary.children[1].children[0].children[1].innerHTML = "$" + shipping.toFixed(2);
+        updateSummary.children[2].children[0].children[1].innerHTML = "$" + (tax * sub).toFixed(2);
+      }
+
+      updateSummary.children[3].children[0].children[1].innerHTML = "$" + ((tax * sub) + sub + shipping).toFixed(2);
+
+      localPricesArr[0] = sub;
+      localPricesArr[1] = shipping;
+      localPricesArr[2] = tax * sub;
+      localPricesArr[3] = ((tax * sub) + sub + shipping);
+
+      updateQty();
+
+      localStorage.setItem("localPriceData", localPricesArr);
+
+    } catch (e) {
+
     }
-
-    else if (cont == "United Kingdom") {
-      shipping = 20;
-      tax = 0.12;
-    }
-
-    else if (cont == "" || cont == null) {
-      shipping = 0;
-      tax = 0;
-    }
-
-    else {
-      shipping = 30;
-      tax = 0.15;
-    }
-
-    updateSummary.children[0].children[0].children[1].innerHTML = "$" + sub;
-
-    if (tax != 0 && shipping != 0) {
-      updateSummary.children[1].children[0].children[1].innerHTML = "$" + shipping.toFixed(2);
-      updateSummary.children[2].children[0].children[1].innerHTML = "$" + (tax * sub).toFixed(2);
-    }
-
-    updateSummary.children[3].children[0].children[1].innerHTML = "$" + ((tax * sub) + sub + shipping).toFixed(2);
-
-    localPricesArr[0] = sub;
-    localPricesArr[1] = shipping;
-    localPricesArr[2] = tax * sub;
-    localPricesArr[3] = ((tax * sub) + sub + shipping);
-
-    updateQty();
-
-    localStorage.setItem("localPriceData", localPricesArr);
-
-  } catch (e) {
-
   }
 
 }
@@ -519,11 +523,11 @@ var sections = document.querySelectorAll(".confirm");
 if (document.querySelector("#order-info").className == "confirm") {
 
   for (var i = 0; i < sections[0].children[1].childElementCount; i++) {
-    var quantity = localStorage.localQtyData.split(",")[j];
+    var quantity = localStorage.localQtyData.split(",")[i];
 
     console.log(quantity);
     sections[0].children[1].children[i].children[0].children[1].innerHTML = "Qty: " + quantity;
-    sections[0].children[1].children[i].children[0].children[2].innerHTML = localStorage.localNormPriceData.split(",")[j];
+    sections[0].children[1].children[i].children[0].children[2].innerHTML = "$" + localStorage.localNormPriceData.split(",")[i];
   }
 
   for (var i = 1; i < sections.length; i++) {
