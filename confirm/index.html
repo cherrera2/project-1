@@ -21,7 +21,7 @@
       <header id="label-confirm">
         <h2>Confirm Order Info</h2>
       </header>
-      <section id="cart-info">
+      <section id="order-info" class="confirm">
         <h3>Cart</h3>
         <ul class="items">
           <li>
@@ -53,7 +53,7 @@
           </li>
         </ul>
       </section>
-      <section id="shipping-info">
+      <section id="shipping-info" class="confirm">
         <h3>Shipping</h3>
         <ul>
           <li>
@@ -85,7 +85,48 @@
             <p></p>
           </li>
           <li>
+            <h4>Apartment Number</h4>
+            <p></p>
+          </li>
+          <li>
+            <h4>Country Code</h4>
+            <p></p>
+          </li>
+          <li>
+            <h4>Phone Number</h4>
+            <p></p>
+          </li>
+        </ul>
+      </section>
+      <section id="billing-info" class="confirm">
+        <h3>Billing</h3>
+        <ul>
+          <li>
+            <h4>Full Name</h4>
+            <p></p>
+          </li>
+          <li>
+            <h4>Email</h4>
+            <p></p>
+          </li>
+          <li>
+            <h4>Country</h4>
+            <p></p>
+          </li>
+          <li>
+            <h4>State/Region/Province</h4>
+            <p></p>
+          </li>
+          <li>
+            <h4>City</h4>
+            <p></p>
+          </li>
+          <li>
             <h4>Address</h4>
+            <p></p>
+          </li>
+          <li>
+            <h4>Zip/Postal Code</h4>
             <p></p>
           </li>
           <li>
@@ -102,8 +143,8 @@
           </li>
         </ul>
       </section>
-      <section id="billing-info">
-        <h3>Billing</h3>
+      <section id="payment-info" class="confirm">
+        <h3>Payment</h3>
         <ul>
           <li>
             <h4>Card Number</h4>
@@ -123,24 +164,34 @@
           </li>
         </ul>
       </section>
-      <section id="summary-info">
+      <section id="summary-info" class="confirm">
         <h3>Summary</h3>
-        <header id="subtotal">
-          <h4>Subtotal</h4>
-          <p>$X</p>
-        </header>
-        <header id="shipping">
-          <h4>Shipping</h4>
-          <p>$X</p>
-        </header>
-        <header id="tax">
-          <h4>Tax</h4>
-          <p>$X</p>
-        </header>
-        <header id="total">
-          <h4>Total</h4>
-          <p>$X</p>
-        </header>
+        <ul id=price-values>
+          <li>
+            <header id="subtotal">
+              <h4>Subtotal</h4>
+              <p>$X</p>
+            </header>
+          </li>
+          <li>
+            <header id="shipping">
+              <h4>Shipping</h4>
+              <p>$X</p>
+            </header>
+          </li>
+          <li>
+            <header id="tax">
+              <h4>Tax</h4>
+              <p>$X</p>
+            </header>
+          </li>
+          <li>
+            <header id="total">
+              <h4>Total</h4>
+              <p>$X</p>
+            </header>
+          </li>
+        </ul>
       </section>
     </main>
     <footer id="footer">

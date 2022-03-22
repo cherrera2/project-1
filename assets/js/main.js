@@ -2,9 +2,12 @@
 
 /* <--------------- Global Variables ---------------> */
 
-var formData = document.forms[0].children[1].children[0];
-var formLength = document.forms[0].length - 2;
-var formType = document.forms[0].id;
+if (document.querySelector("#order-info").className != "confirm"){
+  var formData = document.forms[0].children[1].children[0];
+  var formLength = document.forms[0].length - 2;
+  var formType = document.forms[0].id;
+}
+
 var navPick = document.querySelector('nav').children[0];
 var contButton = document.querySelector('#submit');
 const qty = document.querySelectorAll('.qty');
@@ -12,8 +15,6 @@ const qty = document.querySelectorAll('.qty');
 formData.children[0].children[0].removeAttribute("hidden");
 formData.children[0].children[1].removeAttribute("hidden");
 contButton.setAttribute("disabled", "true");
-
-document.querySelector('html').className = 'js';
 
 if (formType == 'shipping-form') {
   navPick.children[1].innerHTML = "";
@@ -24,9 +25,11 @@ else if (formType == 'billing-form') {
   navPick.children[2].innerHTML = "";
 }
 
-for (var i = 0; i < qty.length; i++) {
-  qty[i].removeAttribute("hidden");
+  for (var i = 0; i < qty.length; i++) {
+    qty[i].removeAttribute("hidden");
 }
+
+document.querySelector('html').className = 'js';
 
 /* <--------------- Shipping Data Storage ---------------> */
 
@@ -329,22 +332,37 @@ const strPrice = document.querySelectorAll('.price');
 const normPrice = [];
 const updatePrice = [];
 const qtyArr = [];
+const priceArr = [];
 
 var updateCart = document.querySelector('#cart');
 var updateSummary = document.querySelector('#price-values');
-var clickBag = document.querySelector('#bag').children[0];
-var clickX = document.querySelector('#x-button').children[0];
+try {
+  var clickBag = document.querySelector('#bag').children[0];
+  var clickX = document.querySelector('#x-button').children[0];
+} catch (e) {
+
+}
 var cont = "";
 
 var sub = 0;
 var shipping = 0;
 var tax = 0;
 
+for (var i = 0; i < strPrice.length; i++) {
+  priceArr[i] = parseFloat(strPrice[i].innerHTML.replace("$", ""));
+}
+
+localStorage.setItem("localNormPriceData", priceArr);
+
 window.addEventListener('resize', displayCart)
 
 function displayCart() {
   if (window.matchMedia('(min-width: 45em)').matches) {
-    updateCart.style.display = "block";
+    try {
+      updateCart.style.display = "block";
+    } catch (e) {
+
+    }
   }
 }
 
@@ -355,12 +373,16 @@ for (let i = 0; i < strPrice.length; i++) {
 }
 
 if (localStorage.localQtyData != undefined) {
-  var sub = 0;
-  for (let i = 0; i < strPrice.length; i++) {
-    qty[i].value = localStorage.localQtyData.split(",")[i];
-    updatePrice[i] = normPrice[i] * parseInt(qty[i].value);
-    strPrice[i].innerHTML = "$" + updatePrice[i].toFixed(2);
-    sub += updatePrice[i]
+  try {
+    var sub = 0;
+    for (let i = 0; i < strPrice.length; i++) {
+      qty[i].value = localStorage.localQtyData.split(",")[i];
+      updatePrice[i] = normPrice[i] * parseInt(qty[i].value);
+      strPrice[i].innerHTML = "$" + updatePrice[i].toFixed(2);
+      sub += updatePrice[i]
+    }
+  } catch (e) {
+
   }
 }
 
@@ -377,7 +399,11 @@ if (localStorage.localPriceData != undefined) {
   updateSummary.children[3].children[0].children[1].innerHTML = "$" + parseFloat(localStorage.localPriceData.split(",")[3]).toFixed(2);
 }
 
-updateCart.addEventListener('input', updateQty);
+try {
+  updateCart.addEventListener('input', updateQty);
+} catch (e) {
+
+}
 
 try {
   shippingFormData.addEventListener('input', otherPrice)
@@ -406,14 +432,11 @@ function updateQty() {
 
 function otherPrice() {
 
+  const localPricesArr = []
 
-console.log("hi");
-
-const localPricesArr = []
-
-if (cont == "") {
-  cont = document.querySelector('#shipping-form #country-name').value;
-}
+  if (cont == "") {
+    cont = document.querySelector('#shipping-form #country-name').value;
+  }
 
   try {
 
@@ -466,8 +489,12 @@ if (cont == "") {
 
 }
 
-clickBag.addEventListener('click', openCart);
-clickX.addEventListener('click', closeCart);
+try {
+  clickBag.addEventListener('click', openCart);
+  clickX.addEventListener('click', closeCart);
+} catch (e) {
+
+}
 
 function openCart() {
   updateCart.style.display = "block";
@@ -475,4 +502,42 @@ function openCart() {
 
 function closeCart() {
   updateCart.style.display = "none";
+}
+
+/* <--------------- Confirm Data ---------------> */
+
+var sections = document.querySelectorAll(".confirm");
+
+if (document.querySelector("#order-info").className == "confirm") {
+
+  for (var i = 0; i < sections[0].children[1].childElementCount; i++) {
+    var quantity = localStorage.localQtyData.split(",")[j];
+
+    console.log(quantity);
+    sections[0].children[1].children[i].children[0].children[1].innerHTML = "Qty: " + quantity;
+    sections[0].children[1].children[i].children[0].children[2].innerHTML = localStorage.localNormPriceData.split(",")[j];
+  }
+
+  for (var i = 1; i < sections.length; i++) {
+    var list = sections[i].children[1];
+    if (i == 1) {
+      console.log("check");
+      for (var j = 0; j < list.childElementCount; j++) {
+        list.children[j].children[1].innerHTML = localStorage.localShippingData.split(",")[j];
+      }
+    }
+    if (i == 2) {
+      console.log("check");
+      for (var j = 0; j < list.childElementCount; j++) {
+        list.children[j].children[1].innerHTML = localStorage.localBillingData.split(",")[j];
+      }
+    }
+    if (i == 3) {
+      console.log("check");
+      for (var j = 0; j < list.childElementCount; j++) {
+        list.children[j].children[1].innerHTML = localStorage.localPaymentData.split(",")[j];
+      }
+    }
+
+  }
 }

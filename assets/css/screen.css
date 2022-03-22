@@ -326,6 +326,11 @@ p {
   padding-left: 1.25em; /* 19.2 / 15.36 = 0.78125em */
 }
 
+.confirm ul{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 #submit {
   background-color: rgb(0, 157, 224);
   border: 0.1em solid rgb(59, 59, 59);
