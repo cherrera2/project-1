@@ -379,6 +379,41 @@ p {
   margin-top: 27em;
 }
 
+#proceed #submit {
+  position: static;
+  margin-top: auto;
+  right: auto;
+  width: 100%;
+}
+
+#proceed ul {
+  display: flex;
+  flex-direction: column;
+  padding: 0.8em;
+}
+
+#proceed li {
+  padding-bottom: 1em;
+}
+
+#proceed #button {
+  background-color: rgb(0, 157, 224);
+  border: 0.1em solid rgb(59, 59, 59);
+  border-radius: 0.25em;
+  color: rgb(245, 245, 245); /* Light Grey */
+  width: 100%;
+}
+
+#proceed #button:hover {
+  background-color: rgb(12, 115, 247);
+  color: white;
+  cursor: pointer;
+}
+
+#proceed #button:active {
+  opacity: 50%;
+}
+
 #summary {
   padding-bottom: 0.8em;
 }
@@ -474,6 +509,19 @@ p {
 
   #submit {
     margin-top: 36.75em;
+  }
+
+  #proceed #submit {
+    width: 8em;
+  }
+
+  #proceed #button {
+    width: 7em;
+  }
+
+  #proceed ul {
+    flex-direction: row;
+    justify-content: space-between;
   }
 
 }
@@ -627,6 +675,10 @@ p {
 
   footer.payment {
     top: 47em;
+  }
+
+  footer.confirm {
+    top: 115em;
   }
 
   #submit {

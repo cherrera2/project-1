@@ -2,19 +2,22 @@
 
 /* <--------------- Global Variables ---------------> */
 
+var navPick = document.querySelector('nav').children[0];
+var contButton = document.querySelector('#submit');
+const qty = document.querySelectorAll('.qty');
+contButton.setAttribute("disabled", "true");
+
 if (document.querySelector("#order-info").className != "confirm"){
   var formData = document.forms[0].children[1].children[0];
   var formLength = document.forms[0].length - 2;
   var formType = document.forms[0].id;
+  formData.children[0].children[0].removeAttribute("hidden");
+  formData.children[0].children[1].removeAttribute("hidden");
 }
 
-var navPick = document.querySelector('nav').children[0];
-var contButton = document.querySelector('#submit');
-const qty = document.querySelectorAll('.qty');
-
-formData.children[0].children[0].removeAttribute("hidden");
-formData.children[0].children[1].removeAttribute("hidden");
-contButton.setAttribute("disabled", "true");
+else {
+  contButton.removeAttribute("disabled");
+}
 
 if (formType == 'shipping-form') {
   navPick.children[1].innerHTML = "";
