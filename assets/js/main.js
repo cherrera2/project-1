@@ -63,6 +63,11 @@ for (i = 0; i < qty.length; i++) {
 
 document.querySelector('html').className = 'js';
 
+if (formType === "payment-form") {
+  document.querySelector("#payment-form").setAttribute("action", "../confirm/");
+}
+
+
 /* <--------------- Shipping Data Storage ---------------> */
 
 if (typeof(localStorage.localShippingData) === "string" && formType === 'shipping-form') {

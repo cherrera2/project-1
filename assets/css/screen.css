@@ -60,6 +60,14 @@ p {
   box-sizing: border-box;
 }
 
+#label-processed h2,
+#processed-statement h3,
+#processed-statement h4 {
+  padding-left: 0;
+  padding-bottom: 0.75em;
+  text-align: center;
+}
+
 input, #country-name {
   width: 100%;
   padding: 0.5em;
@@ -261,7 +269,7 @@ li.active a {
   padding: 0.8em;
 }
 
-#proceed #button {
+#proceed #return {
   background-color: rgb(0, 157, 224);
   border: 0.1em solid rgb(59, 59, 59);
   border-radius: 0.25em;
@@ -269,11 +277,11 @@ li.active a {
   width: 100%;
 }
 
-#proceed #button:active {
+#proceed #return:active {
   opacity: 50%;
 }
 
-#proceed #button:hover {
+#proceed #return:hover {
   background-color: rgb(12, 115, 247);
   color: white;
   cursor: pointer;
@@ -515,7 +523,7 @@ li.active a {
     width: 8em;
   }
 
-  #proceed #button {
+  #proceed #return {
     width: 7em;
   }
 

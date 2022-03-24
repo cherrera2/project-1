@@ -195,14 +195,18 @@
       </section>
       <ul id="proceed">
         <li>
-          <a href="../payment/">
-            <input type="button" id="button" value="Edit Order" />
-          </a>
+          <form action="../payment/">
+            <fieldset name="return-form">
+              <input type="submit" id="return" value="Edit Order" />
+            </fieldset>
+          </form>
         </li>
         <li>
-          <a href="../processed/">
-            <input type="submit" id="submit" value="Confirm Order" />
-          </a>
+          <form action="../processed/">
+            <fieldset name="return-form">
+              <input type="submit" id="submit" value="Confirm Order" />
+            </fieldset>
+          </form>
         </li>
       </ul>
     </main>
