@@ -50,6 +50,12 @@ footer {
   padding-left: 1.5625em; /* 19.2 / 12.288 = 1.5625em */
 }
 
+p {
+  font-size: 0.64em; /* 15.36 / 24 = 0.64em */
+  padding-bottom: 0.78125em; /*12 / 15.36 = 0.78125em */
+  padding-left: 1.25em; /* 19.2 / 15.36 = 0.78125em */
+}
+
 * {
   box-sizing: border-box;
 }
@@ -61,10 +67,39 @@ input, #country-name {
   padding-top: 0.4em;
 }
 
+#bag input {
+  display: none;
+}
+
+#bag:hover,
+#x-button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+#cart {
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+
+.confirm ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 fieldset {
   display: flex;
   flex-direction: column;
   padding: 0.8em;
+}
+
+form h3 {
+  padding-top: 1em;
+  padding-bottom: 0;
+}
+
+fieldset li {
+  padding-top: 0.5em;
 }
 
 fieldset ol {
@@ -72,69 +107,192 @@ fieldset ol {
   display: grid;
 }
 
-#shipping-form fieldset ol {
-  grid-template-areas: "name name name"
-                       "mail mail mail"
-                       "country country country"
-                       "state state state"
-                       "city city city"
-                       "address address address"
-                       "zip apt apt"
-                       "cc phone phone";
-
-  grid-template-columns: 1fr 1fr 1fr;
+#x-button input {
+  display: none;
 }
 
-#shipping-form ol li:nth-child(1) {
-  grid-area: name;
+.js #bag input {
+  display: block;
+  position: absolute;
+  top: 4em;
+  left: 4em;
+  margin-left: 4em;
+  max-width: 5em;
 }
 
-#shipping-form ol li:nth-child(2) {
-  grid-area: mail;
+.js #cart {
+  box-shadow: 0.1em 0.1em 3em;
+  display: none;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgb(245, 245, 245); /* Light Grey */
+  overflow-x: hidden;
+  padding-top: 2.5em;
 }
 
-#shipping-form ol li:nth-child(3) {
-  grid-area: country;
+.js #cart.closed {
+  display: none;
 }
 
-#shipping-form ol li:nth-child(4) {
-  grid-area: state;
+.js #cart h3 {
+  font-size: 1.25em; /* 30 / 24 = 1.25em */
+  line-height: 1.2em; /* 36 / 30 = 1.2em */
+  padding: 0.64em; /* 30 / 19.2 = 0.64em */
+  text-align: center;
 }
 
-#shipping-form ol li:nth-child(5) {
-  grid-area: city;
+.js #cart.open {
+  display: block;
 }
 
-#shipping-form ol li:nth-child(6) {
-  grid-area: address;
+.js .items {
+  justify-content: center;
+  text-align: center;
 }
 
-#shipping-form ol li:nth-child(7) {
-  grid-area: zip;
+.js .items h4,
+.js .items p {
+  padding-left: 0;
 }
 
-#shipping-form ol li:nth-child(8) {
-  grid-area: apt;
+#submit {
+  background-color: rgb(0, 157, 224);
+  border: 0.1em solid rgb(59, 59, 59);
+  border-radius: 0.25em;
+  color: rgb(245, 245, 245); /* Light Grey */
+  position: absolute;
+  right: 1.45em;
+  margin-top: 51.5em;
+  width: 11em;
 }
 
-#shipping-form ol li:nth-child(9) {
-  grid-area: cc;
+#submit:active {
+  opacity: 50%;
 }
 
-#shipping-form ol li:nth-child(10) {
-  grid-area: phone;
+#submit:disabled {
+  background-color: grey;
+  color: black;
+}
+
+#submit:hover {
+  background-color: rgb(12, 115, 247);
+  color: white;
+  cursor: pointer;
+}
+
+.js #submit {
+  margin-top: 27em;
+}
+
+#submit:disabled:active {
+  opacity: 100%;
+}
+
+#submit:disabled:hover {
+  background-color: grey;
+  color: black;
+  cursor: auto;
+}
+
+.js #x-button input {
+  display: flex;
+  justify-content: flex-end;
+  max-width: 4em;
+  position: absolute;
+  top: 1.25em;
+  left: 1.25em;
+}
+
+label {
+  font-size: 0.7999999999999999em; /* 19.2 / 24 = 0.7999999999999999em*/
+  padding-bottom: 0.4em;
+  padding-top: 0.4em;
+}
+
+.nav-info a {
+  display: block;
+  padding: 0.8em; /* 15.36 / 19.2 = 0.8*/
+  text-decoration: none;
+  color: rgb(245, 245, 245); /* Light Grey */
+}
+
+li.active a {
+  background-color: rgb(12, 115, 247);
+}
+
+.nav-info {
+  text-align: center;
+  display: block;
+}
+
+.nav-info a:hover {
+  background-color: rgb(12, 115, 247);
+  color: white;
+}
+
+.nav-info li {
+  font-size: 0.7999999999999999em; /* 19.2 / 24 = 0.7999999999999999em*/
+}
+
+#page-header {
+  background-color: rgb(0, 157, 224);
+  color: rgb(245, 245, 245); /* Light Grey */
+}
+
+#proceed li {
+  padding-bottom: 1em;
+}
+
+#proceed #submit {
+  position: static;
+  margin-top: auto;
+  right: auto;
+  width: 100%;
+}
+
+#proceed ul {
+  display: flex;
+  flex-direction: column;
+  padding: 0.8em;
+}
+
+#proceed #button {
+  background-color: rgb(0, 157, 224);
+  border: 0.1em solid rgb(59, 59, 59);
+  border-radius: 0.25em;
+  color: rgb(245, 245, 245); /* Light Grey */
+  width: 100%;
+}
+
+#proceed #button:active {
+  opacity: 50%;
+}
+
+#proceed #button:hover {
+  background-color: rgb(12, 115, 247);
+  color: white;
+  cursor: pointer;
+}
+
+#summary {
+  padding-bottom: 0.8em;
 }
 
 #billing-form fieldset ol {
   grid-template-areas: "sas sas sas"
-                       "name name name"
-                       "mail mail mail"
-                       "country country country"
-                       "state state state"
-                       "city city city"
-                       "address address address"
-                       "zip apt apt"
-                       "cc phone phone";
+    "name name name"
+    "mail mail mail"
+    "country country country"
+    "state state state"
+    "city city city"
+    "address address address"
+    "zip apt apt"
+    "cc phone phone";
 
   grid-template-columns: 1fr 1fr 1fr;
 }
@@ -185,8 +343,8 @@ fieldset ol {
 
 #payment-form fieldset ol {
   grid-template-areas: "num num"
-                       "date ccv"
-                       "name name";
+    "date ccv"
+    "name name";
 
   grid-template-columns: 1fr 1fr;
 }
@@ -207,215 +365,57 @@ fieldset ol {
   grid-area: name;
 }
 
-fieldset li{
-  padding-top: 0.5em;
+#shipping-form fieldset ol {
+  grid-template-areas: "name name name"
+    "mail mail mail"
+    "country country country"
+    "state state state"
+    "city city city"
+    "address address address"
+    "zip apt apt"
+    "cc phone phone";
+
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
-form h3 {
-  padding-top: 1em;
-  padding-bottom: 0;
+#shipping-form ol li:nth-child(1) {
+  grid-area: name;
 }
 
-label {
-  font-size: 0.7999999999999999em; /* 19.2 / 24 = 0.7999999999999999em*/
-  padding-bottom: 0.4em;
-  padding-top: 0.4em;
+#shipping-form ol li:nth-child(2) {
+  grid-area: mail;
 }
 
-#bag input {
-  display: none;
+#shipping-form ol li:nth-child(3) {
+  grid-area: country;
 }
 
-.js #bag input {
-  display: block;
-  position: absolute;
-  top: 4em;
-  left: 4em;
-  margin-left: 4em;
-  max-width: 5em;
+#shipping-form ol li:nth-child(4) {
+  grid-area: state;
 }
 
-#x-button input{
-  display: none;
+#shipping-form ol li:nth-child(5) {
+  grid-area: city;
 }
 
-.js #x-button input {
-  display: flex;
-  justify-content: flex-end;
-  max-width: 4em;
-  position: absolute;
-  top: 1.25em;
-  left: 1.25em;
+#shipping-form ol li:nth-child(6) {
+  grid-area: address;
 }
 
-#bag:hover,
-#x-button:hover {
-  cursor: pointer;
-  opacity: 0.5;
+#shipping-form ol li:nth-child(7) {
+  grid-area: zip;
 }
 
-#cart {
-  padding-bottom: 1em;
-  padding-top: 1em;
+#shipping-form ol li:nth-child(8) {
+  grid-area: apt;
 }
 
-.js #cart {
-  box-shadow: 0.1em 0.1em 3em;
-  display: none;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  background-color: rgb(245, 245, 245); /* Light Grey */
-  overflow-x: hidden;
-  padding-top: 2.5em;
+#shipping-form ol li:nth-child(9) {
+  grid-area: cc;
 }
 
-.js #cart.open {
-  display: block;
-}
-
-.js #cart.closed {
-  display: none;
-}
-
-.js #cart h3 {
-  font-size: 1.25em; /* 30 / 24 = 1.25em */
-  line-height: 1.2em; /* 36 / 30 = 1.2em */
-  padding: 0.64em; /* 30 / 19.2 = 0.64em */
-  text-align: center;
-}
-
-.js .items {
-  justify-content: center;
-  text-align: center;
-}
-
-.js .items h4,
-.js .items p {
-  padding-left: 0;
-}
-
-.nav-info {
-  text-align: center;
-  display: block;
-}
-
-.nav-info li {
-  font-size: 0.7999999999999999em; /* 19.2 / 24 = 0.7999999999999999em*/
-}
-
-.nav-info a {
-  display: block;
-  padding: 0.8em; /* 15.36 / 19.2 = 0.8*/
-  text-decoration: none;
-  color: rgb(245, 245, 245); /* Light Grey */
-}
-
-.nav-info a:hover {
-  background-color: rgb(12, 115, 247);
-  color: white;
-}
-
-li.active a {
-  background-color: rgb(12, 115, 247);
-}
-
-#page-header {
-  background-color: rgb(0, 157, 224);
-  color: rgb(245, 245, 245); /* Light Grey */
-}
-
-p {
-  font-size: 0.64em; /* 15.36 / 24 = 0.64em */
-  padding-bottom: 0.78125em; /*12 / 15.36 = 0.78125em */
-  padding-left: 1.25em; /* 19.2 / 15.36 = 0.78125em */
-}
-
-.confirm ul{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-#submit {
-  background-color: rgb(0, 157, 224);
-  border: 0.1em solid rgb(59, 59, 59);
-  border-radius: 0.25em;
-  color: rgb(245, 245, 245); /* Light Grey */
-  position: absolute;
-  right: 1.45em;
-  margin-top: 51.5em;
-  width: 11em;
-}
-
-#submit:disabled {
-  background-color: grey;
-  color: black;
-}
-
-#submit:disabled:hover {
-  background-color: grey;
-  color: black;
-  cursor:auto;
-}
-
-#submit:disabled:active {
-  opacity: 100%;
-}
-
-#submit:hover {
-  background-color: rgb(12, 115, 247);
-  color: white;
-  cursor: pointer;
-}
-
-#submit:active {
-  opacity: 50%;
-}
-
-.js #submit {
-  margin-top: 27em;
-}
-
-#proceed #submit {
-  position: static;
-  margin-top: auto;
-  right: auto;
-  width: 100%;
-}
-
-#proceed ul {
-  display: flex;
-  flex-direction: column;
-  padding: 0.8em;
-}
-
-#proceed li {
-  padding-bottom: 1em;
-}
-
-#proceed #button {
-  background-color: rgb(0, 157, 224);
-  border: 0.1em solid rgb(59, 59, 59);
-  border-radius: 0.25em;
-  color: rgb(245, 245, 245); /* Light Grey */
-  width: 100%;
-}
-
-#proceed #button:hover {
-  background-color: rgb(12, 115, 247);
-  color: white;
-  cursor: pointer;
-}
-
-#proceed #button:active {
-  opacity: 50%;
-}
-
-#summary {
-  padding-bottom: 0.8em;
+#shipping-form ol li:nth-child(10) {
+  grid-area: phone;
 }
 
 @media screen and (min-width: 12.625em) /* 202px = 12.625em */ {
@@ -574,9 +574,9 @@ p {
 @media screen and (min-width: 31.25em)  /* 500px = 31.25em */ {
 
   ol {
-  display: grid;
-  gap: 0.5em;
-  grid-template-columns: 1fr 1fr;
+    display: grid;
+    gap: 0.5em;
+    grid-template-columns: 1fr 1fr;
   }
 
 }
@@ -609,8 +609,8 @@ p {
 
   aside {
     width: 36%;
-    padding-left: .5em;
-    margin-left: .5em;
+    padding-left: 0.5em;
+    margin-left: 0.5em;
     float: right;
     box-shadow: -0.5em -0.5em rgb(0, 157, 224);
   }
@@ -626,11 +626,11 @@ p {
   .js #cart {
     box-shadow: none;
     display: block;
-    position:static;
+    position: static;
   }
 
   .js #cart h3 {
-    text-align:left;
+    text-align: left;
   }
 
   .js .items {
@@ -660,7 +660,7 @@ p {
     line-height: 1.2em; /* 36 / 30 = 1.2em */
   }
 
-  footer {
+  .js footer {
     position: absolute;
     top: 67em;
   }
@@ -694,16 +694,16 @@ p {
     margin-top: -22.75em;
   }
 
-  .js #billing-form #submit {
-    margin-top: -22.8em;
-  }
-
   #payment-form #submit {
     left: 1.45em;
     margin-top: 1em;
     right: 0;
     width: 56.9%;
     max-width: 54.5em;
+  }
+
+  .js #billing-form #submit {
+    margin-top: -22.8em;
   }
 
   #price-values {
