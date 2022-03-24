@@ -114,9 +114,9 @@ function shpData(x) {
   var filledCount = 0;
   var verifyData = 0;
   var checked = "";
-  var atIndex = shipDataArr[1].indexOf("@");
-  var dotIndex = shipDataArr[1].indexOf(".");
-  var phoneNumber = parseInt(shipDataArr[9]);
+  var atIndex = "";
+  var dotIndex = "";
+  var phoneNumber = "";
 
   try {
     checked = document.querySelector('#same-as-shipping').checked;
@@ -155,14 +155,22 @@ function shpData(x) {
     }
   } else {
 
+    console.log("WRITE TO HERE");
+
     for (i = 0; i < formLength; i++) {
       shipDataArr[i] = formData.children[i].children[1].value;
+
+      console.log(shipDataArr);
 
       if (shipDataArr[i] !== "") {
         filledCount++;
       }
     }
   }
+
+  phoneNumber = parseInt(shipDataArr[9]);
+  atIndex = shipDataArr[1].indexOf("@");
+  dotIndex = shipDataArr[1].indexOf(".");
 
   if (dotIndex !== atIndex + 1){
     verifyData++;
@@ -177,7 +185,7 @@ function shpData(x) {
     verifyData = 0;
   }
 
-  console.log(filledCount);
+  console.log(verifyData);
 
   if(type === "shipping") {
 
@@ -559,13 +567,12 @@ try {
 
 function processData() {
   console.log("This is where data would be sent to the remote server to be verified and saved.")
-  if (save === true) {
+  if (save.checked === false) {
     console.log("Customer data was successfully saved");
     localStorage.clear();
     document.querySelector("#processed").setAttribute("action", "../processed/");
-  }
 
-  else {
+  } else {
     console.log("Failed to save Customer data")
     document.querySelector("#processed").setAttribute("action", "../failed/");
   }
