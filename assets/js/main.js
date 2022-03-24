@@ -24,6 +24,8 @@ var tax = 0;
 var sections = document.querySelectorAll(".confirm");
 var quantity = "";
 var list = "";
+var processed = "";
+var save = "";
 var i = 0;
 var j = 0;
 var shipDataArr = [];
@@ -541,6 +543,30 @@ if (document.querySelector("#order-info").className === "confirm") {
         list.children[j].children[1].innerHTML = localStorage.localPaymentData.split(",")[j];
       }
     }
+  }
+}
 
+/* <--------------- Processed Data ---------------> */
+
+processed = document.querySelector("#processed input");
+save = document.querySelector("#check-to-fail");
+
+try {
+  processed.addEventListener('click', processData);
+} catch (e) {
+
+}
+
+function processData() {
+  console.log("This is where data would be sent to the remote server to be verified and saved.")
+  if (save === true) {
+    console.log("Customer data was successfully saved");
+    localStorage.clear();
+    document.querySelector("#processed").setAttribute("action", "../processed/");
+  }
+
+  else {
+    console.log("Failed to save Customer data")
+    document.querySelector("#processed").setAttribute("action", "../failed/");
   }
 }
