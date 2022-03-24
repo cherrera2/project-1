@@ -75,6 +75,27 @@ input, #country-name {
   padding-top: 0.4em;
 }
 
+label[for="same-as-shipping"],
+label[for="check-to-fail"] {
+  cursor: pointer;
+  padding-left: 0.5em;
+}
+
+input[type="checkbox"] {
+  -ms-transform: scale(2);
+  -moz-transform: scale(2);
+  -webkit-transform: scale(2);
+  -o-transform: scale(2);
+  transform: scale(2);
+  margin-left: 0.5em;
+  width: auto;
+}
+
+#fail-simulation {
+  margin-top: 2em;
+  padding-left: 0.8em;
+}
+
 #bag input {
   display: none;
 }
