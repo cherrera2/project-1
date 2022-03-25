@@ -1,34 +1,35 @@
 'use strict';
 
 /* <--------------- Global Variables ---------------> */
-
-var navPick = document.querySelector('nav').children[0];
-var contButton = document.querySelector('#submit');
-var confirmPage = document.querySelector("#order-info").className;
-var qty = document.querySelectorAll('.qty');
-var formData = "";
-var formLength = "";
-var formType = "";
-var shippingFormData = "";
-var billingFormData = "";
-var paymentFormData = "";
-var strPrice = document.querySelectorAll('.price');
-var updateCart = document.querySelector('#cart');
-var updateSummary = document.querySelector('#price-values');
-var clickBag = "";
-var clickX = "";
-var cont = "";
-var sub = 0;
-var shipping = 0;
-var tax = 0;
-var sections = document.querySelectorAll(".confirm");
-var quantity = "";
-var list = "";
-var processed = "";
-var save = "";
+var navPick = document.querySelector('nav').children[0]; // Navigation
+var contButton = document.querySelector('#submit'); // Submit button
+var confirmPage = document.querySelector("#order-info").className; // Checks if user is on confirm page
+var qty = document.querySelectorAll('.qty'); // Cart quantity
+var formData = ""; // Data in the form
+var formLength = ""; // Number of inputs in the form
+var formType = ""; // Shipping, Billing, or Payment form
+var shippingFormData = ""; // Data from the shipping form
+var billingFormData = ""; // Data from the billing form
+var paymentFormData = ""; // Data from the payment form
+var strPrice = document.querySelectorAll('.price'); // Original prices
+var updateCart = document.querySelector('#cart'); // The cart with items, prices, and qty
+var updateSummary = document.querySelector('#price-values'); // Displayed prices are changed
+var clickBag = ""; // Click bag icon to open cart
+var clickX = ""; // Click x icon to close cart
+var cont = ""; // Country name for shipping and tax costs
+var sub = 0; // Subtotal
+var shipping = 0; // Shipping cost
+var tax = 0; // Tax percentage
+var sections = document.querySelectorAll(".confirm"); // Sections of the confirm page
+var quantity = ""; // Cart quantity for confirm page
+var list = ""; // Separate sections of the confirm page
+var processed = ""; // Processed button
+var save = ""; // Checks to see if user data was saved to the server
+// Used by for statements
 var i = 0;
 var j = 0;
-var shipDataArr = [];
+// Arrays
+var shipDataArr = []; // Used by shipping and billing
 var paymentDataArr = [];
 var normPrice = [];
 var updatePrice = [];
@@ -36,9 +37,9 @@ var qtyArr = [];
 var priceArr = [];
 var localPricesArr = [];
 
-
 contButton.setAttribute("disabled", "true");
 
+// Set these variables when on form pages
 if (confirmPage !== "confirm") {
   formData = document.forms[0].children[1].children[0];
   formLength = document.forms[0].length - 2;
@@ -48,6 +49,7 @@ if (confirmPage !== "confirm") {
   contButton.removeAttribute("disabled");
 }
 
+// Set default nav values when no correct data has been entered
 if (formType === 'shipping-form') {
   navPick.children[1].innerHTML = "";
   navPick.children[2].innerHTML = "";
@@ -59,12 +61,15 @@ if (formType === 'shipping-form') {
   formData.children[0].setAttribute("aria-hidden", "false");
 }
 
+// Allow users to change qty amount
 for (i = 0; i < qty.length; i++) {
   qty[i].removeAttribute("hidden");
 }
 
+// Used for styling when JavaScript is present
 document.querySelector('html').className = 'js';
 
+// Forward user to confirmation page when pressing the submit button on the payment form
 if (formType === "payment-form") {
   document.querySelector("#payment-form").setAttribute("action", "../confirm/");
 }
@@ -72,6 +77,7 @@ if (formType === "payment-form") {
 
 /* <--------------- Shipping Data Storage ---------------> */
 
+// If there is data in the shipping local storage, write to local array and display the data in the form
 if (typeof(localStorage.localShippingData) === "string" && formType === 'shipping-form') {
   for (i = 0; i < localStorage.localShippingData.split(",").length; i++) {
     shipDataArr[i] = localStorage.localShippingData.split(",")[i];
@@ -110,12 +116,12 @@ function fillShippingForm() {
 }
 
 function shpData(x) {
-  var type = x;
-  var verifyData = 0;
-  var checked = "";
-  var atIndex = "";
-  var dotIndex = "";
-  var phoneNumber = "";
+  var type = x; // Either Shipping or Billing form
+  var verifyData = 0; // Verify phone and email formatting
+  var checked = ""; // Check for same as shipping
+  var atIndex = ""; // The index of @ in the email string
+  var dotIndex = ""; // The index of . in the email string
+  var phoneNumber = ""; // Digit only phone number
 
   try {
     checked = document.querySelector('#same-as-shipping').checked;
@@ -123,6 +129,7 @@ function shpData(x) {
     console.log("Could not set the checked variable");
   }
 
+  // If checked write shipping data to form
   if (checked === true) {
 
     for (i = 0; i < localStorage.localShippingData.split(",").length; i++) {
@@ -135,6 +142,7 @@ function shpData(x) {
       formData.children[i].children[1].setAttribute("disabled", "true");
     }
 
+    // If not checked just enter Billing data manually
   } else if (checked === false) {
 
     for (i = 1; i < formLength; i++) {
@@ -148,6 +156,7 @@ function shpData(x) {
         console.log("Could not enable button");
       }
     }
+    // If checked does not exist enter Shipping data manually
   } else {
 
     for (i = 0; i < formLength; i++) {
@@ -159,12 +168,15 @@ function shpData(x) {
   atIndex = shipDataArr[1].indexOf("@");
   dotIndex = shipDataArr[1].indexOf(".");
 
+  // Verify email formatting
   if (dotIndex !== atIndex + 1){
     verifyData++;
+    // If failed, reset verification
   } else {
     verifyData = 0;
   }
 
+  // Verify phone formatting for both Shipping and Billing
   if (phoneNumber.replace(/\D/g, '').length === 10) {
     if (type === "shipping") {
       shipDataArr[9] = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
@@ -176,16 +188,19 @@ function shpData(x) {
       formData.children[10].children[1].value = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
       verifyData++;
     }
-
+    // If failed, reset verification
   } else {
     verifyData = 0;
   }
 
+  // If on the shipping form check to verify it's data
   if(type === "shipping") {
 
+    // If data is verified, open billing link
     if (verifyData === 2) {
       navPick.children[1].innerHTML = "<a href=\"./billing/\">Billing</a>";
 
+      // If billing data available , open payment link
       if (typeof(localStorage.localBillingData) === "string") {
         navPick.children[2].innerHTML = "<a href=\"./payment/\">Payment</a>";
       }
@@ -197,6 +212,7 @@ function shpData(x) {
       }
 
       localStorage.setItem("localShippingData", shipDataArr);
+
     } else {
       navPick.children[1].innerHTML = "";
       navPick.children[2].innerHTML = "";
@@ -210,9 +226,9 @@ function shpData(x) {
       contButton.setAttribute("disabled", "true");
 
     }
-
+    // If on the billing form check to verify it's data
   } else if (type === "billing") {
-
+    // If data is verified, open payment link
     if (verifyData === 2) {
       navPick.children[2].innerHTML = "<a href=\"../payment/\">Payment</a>";
 
@@ -247,6 +263,7 @@ try {
   console.log("Could not set billingFormData variables");
 }
 
+// If there is data in the billing local storage, write to local array and display the data in the form
 if (typeof(localStorage.localBillingData) === "string" && formType === 'billing-form') {
   for (i = 0; i < localStorage.localBillingData.split(",").length; i++) {
     shipDataArr[i] = localStorage.localBillingData.split(",")[i];
@@ -285,6 +302,7 @@ try {
   console.log("Could not set paymentFormData variables");
 }
 
+// If there is data in the payment local storage, write to local array and display the data in the form
 if (typeof(localStorage.localPaymentData) === "string" && formType === 'payment-form') {
   for (i = 0; i < localStorage.localPaymentData.split(",").length; i++) {
     shipDataArr[i] = localStorage.localPaymentData.split(",")[i];
@@ -309,22 +327,25 @@ try {
 }
 
 function payData() {
-  var cardDate = "";
+  var cardDate = ""; // Month and Year values on user's card
 
+  // Change Month and Year type from number to text to allow for "/"
   formData.children[1].children[1].setAttribute("type", "text");
 
+  // Write form data to local array
   for (i = 0; i < formLength; i++) {
     paymentDataArr[i] = formData.children[i].children[1].value;
-
   }
-
+  // Remove all non-digits from Month and Year value
   cardDate = paymentDataArr[1].replace(/\D/g, '');
 
+  // If Month and Year is 4 digits long, add a "/" between them
   if (cardDate.length === 4) {
     paymentDataArr[1] = cardDate.replace(/(\d{2})(\d{2})/, "$1/$2");
     formData.children[1].children[1].value = cardDate.replace(/(\d{2})(\d{2})/, "$1/$2");
   }
 
+  // If payment data is verified, enable continue button
   if (paymentDataArr[0].length >= 13 && paymentDataArr[0].length <= 19 &&
       cardDate.length === 4 && paymentDataArr[2].length >= 3 &&
       paymentDataArr[2].length <= 4) {
@@ -358,6 +379,7 @@ try {
   console.log("Could not load button variables");
 }
 
+// If not on the confirm page, add prices to an array and local storage
 if (confirmPage !== "confirm") {
   for (i = 0; i < strPrice.length; i++) {
     priceArr[i] = parseFloat(strPrice[i].innerHTML.replace("$", ""));
@@ -365,6 +387,7 @@ if (confirmPage !== "confirm") {
   localStorage.setItem("localNormPriceData", priceArr);
 }
 
+// Show cart when screen is 720px or 45em wide
 window.addEventListener('resize', displayCart);
 
 function displayCart() {
@@ -378,12 +401,14 @@ function displayCart() {
   }
 }
 
+// Set normal price as the subtotal
 for (i = 0; i < strPrice.length; i++) {
   normPrice[i] = parseFloat(strPrice[i].innerHTML.replace("$", ""));
   updatePrice[i] = normPrice[i];
   sub += updatePrice[i];
 }
 
+// If qty has been changed update the subtotal
 if (typeof(localStorage.localQtyData) === "string" && confirmPage !== "confirm") {
   try {
     sub = 0;
@@ -398,13 +423,14 @@ if (typeof(localStorage.localQtyData) === "string" && confirmPage !== "confirm")
   }
 }
 
+// If shipping data exist update the country name
 if (typeof(localStorage.localShippingData) === "string") {
   cont = localStorage.localShippingData.split(",")[2];
   otherPrice();
 }
 
+// If shipping data exist update summary values
 if (typeof(localStorage.localShippingData) === "string") {
-
   updateSummary.children[0].children[0].children[1].innerHTML = "$" + parseFloat(localStorage.localPriceData.split(",")[0]).toFixed(2);
   updateSummary.children[1].children[0].children[1].innerHTML = "$" + parseFloat(localStorage.localPriceData.split(",")[1]).toFixed(2);
   updateSummary.children[2].children[0].children[1].innerHTML = "$" + parseFloat(localStorage.localPriceData.split(",")[2]).toFixed(2);
@@ -425,6 +451,7 @@ try {
 
 function updateQty() {
 
+  // Update quantity and price points when quantity of an item changes
   if (confirmPage !== "confirm") {
     sub = 0;
     for (i = 0; i < qty.length; i++) {
@@ -450,7 +477,7 @@ function otherPrice() {
   if (confirmPage !== "confirm") {
     localPricesArr = [];
 
-    if (cont === "") {
+    if (formType === "shipping") {
       cont = document.querySelector('#shipping-form #country-name').value;
     }
 
@@ -521,6 +548,7 @@ function closeCart() {
 
 /* <--------------- Confirm Data ---------------> */
 
+// If on the confirm page, add price, qty, and form data
 if (document.querySelector("#order-info").className === "confirm") {
 
   for (i = 0; i < sections[0].children[1].childElementCount; i++) {
@@ -566,7 +594,7 @@ try {
 }
 
 function processData() {
-  console.log("This is where data would be sent to the remote server to be verified and saved.");
+  // This is where data would be sent to the remote server to be verified and saved
   if (save.checked === false) {
     console.log("Customer data was successfully saved");
     localStorage.clear();
