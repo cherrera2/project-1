@@ -60,6 +60,16 @@ p {
   box-sizing: border-box;
 }
 
+form h3 {
+  padding-top: 1em;
+  padding-bottom: 0;
+}
+
+.js .items h4,
+.js .items p {
+  padding-left: 0;
+}
+
 #label-processed h2,
 #processed-statement h3,
 #processed-statement h4 {
@@ -117,11 +127,6 @@ fieldset {
   padding: 0.8em;
 }
 
-form h3 {
-  padding-top: 1em;
-  padding-bottom: 0;
-}
-
 fieldset li {
   padding-top: 0.5em;
 }
@@ -176,11 +181,6 @@ fieldset ol {
 .js .items {
   justify-content: center;
   text-align: center;
-}
-
-.js .items h4,
-.js .items p {
-  padding-left: 0;
 }
 
 #submit {

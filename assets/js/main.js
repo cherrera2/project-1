@@ -111,7 +111,6 @@ function fillShippingForm() {
 
 function shpData(x) {
   var type = x;
-  var filledCount = 0;
   var verifyData = 0;
   var checked = "";
   var atIndex = "";
@@ -128,10 +127,6 @@ function shpData(x) {
 
     for (i = 0; i < localStorage.localShippingData.split(",").length; i++) {
       shipDataArr[i] = localStorage.localShippingData.split(",")[i];
-
-      if (shipDataArr[i] !== "") {
-        filledCount++;
-      }
 
     }
 
@@ -157,10 +152,6 @@ function shpData(x) {
 
     for (i = 0; i < formLength; i++) {
       shipDataArr[i] = formData.children[i].children[1].value;
-
-      if (shipDataArr[i] !== "") {
-        filledCount++;
-      }
     }
   }
 
@@ -174,7 +165,7 @@ function shpData(x) {
     verifyData = 0;
   }
 
-  if (phoneNumber.replace(/\D/g,'').length === 10) {
+  if (phoneNumber.replace(/\D/g, '').length === 10) {
     if (type === "shipping") {
       shipDataArr[9] = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
       formData.children[9].children[1].value = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
@@ -318,7 +309,6 @@ try {
 }
 
 function payData() {
-  var filledCount = 0;
   var cardDate = "";
 
   formData.children[1].children[1].setAttribute("type", "text");
@@ -326,12 +316,9 @@ function payData() {
   for (i = 0; i < formLength; i++) {
     paymentDataArr[i] = formData.children[i].children[1].value;
 
-    if (paymentDataArr[i] !== "") {
-      filledCount++;
-    }
   }
 
-  cardDate = paymentDataArr[1].replace(/\D/g,'');
+  cardDate = paymentDataArr[1].replace(/\D/g, '');
 
   if (cardDate.length === 4) {
     paymentDataArr[1] = cardDate.replace(/(\d{2})(\d{2})/, "$1/$2");
@@ -340,7 +327,7 @@ function payData() {
 
   if (paymentDataArr[0].length >= 13 && paymentDataArr[0].length <= 19 &&
       cardDate.length === 4 && paymentDataArr[2].length >= 3 &&
-      paymentDataArr[2].length <= 4 && filledCount === 4) {
+      paymentDataArr[2].length <= 4) {
 
     try {
       contButton.removeAttribute("disabled");
@@ -575,18 +562,18 @@ save = document.querySelector("#check-to-fail");
 try {
   processed.addEventListener('click', processData);
 } catch (e) {
-
+  console.log("failed to addEventListener to processed button");
 }
 
 function processData() {
-  console.log("This is where data would be sent to the remote server to be verified and saved.")
+  console.log("This is where data would be sent to the remote server to be verified and saved.");
   if (save.checked === false) {
     console.log("Customer data was successfully saved");
     localStorage.clear();
     document.querySelector("#processed").setAttribute("action", "../processed/");
 
   } else {
-    console.log("Failed to save Customer data")
+    console.log("Failed to save Customer data");
     document.querySelector("#processed").setAttribute("action", "../failed/");
   }
 }
