@@ -263,7 +263,7 @@ li.active a {
   font-size: 0.7999999999999999em; /* 19.2 / 24 = 0.7999999999999999em*/
 }
 
-#order-info {
+#order-info.confirm h3 {
   padding-top: 2em;
 }
 
