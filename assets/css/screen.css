@@ -111,11 +111,6 @@ input[type="checkbox"] {
   padding-top: 1em;
 }
 
-.confirm ul {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
 fieldset {
   display: flex;
   flex-direction: column;
@@ -266,6 +261,10 @@ li.active a {
 
 .nav-info li {
   font-size: 0.7999999999999999em; /* 19.2 / 24 = 0.7999999999999999em*/
+}
+
+#order-info {
+  padding-top: 2em;
 }
 
 #page-header {
@@ -493,6 +492,11 @@ li.active a {
 
 @media screen and (min-width: 20.625em) /* 330px = 20.625em */ {
 
+  .confirm ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
   .js #bag input {
     left: -3.5em;
     max-width: 5em;
@@ -707,7 +711,7 @@ li.active a {
   }
 
   footer.confirm {
-    top: 115em;
+    top: 125em;
   }
 
   #submit {
