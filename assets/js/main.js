@@ -155,12 +155,8 @@ function shpData(x) {
     }
   } else {
 
-    console.log("WRITE TO HERE");
-
     for (i = 0; i < formLength; i++) {
       shipDataArr[i] = formData.children[i].children[1].value;
-
-      console.log(shipDataArr);
 
       if (shipDataArr[i] !== "") {
         filledCount++;
@@ -168,7 +164,7 @@ function shpData(x) {
     }
   }
 
-  phoneNumber = parseInt(shipDataArr[9]);
+  phoneNumber = shipDataArr[9];
   atIndex = shipDataArr[1].indexOf("@");
   dotIndex = shipDataArr[1].indexOf(".");
 
@@ -178,14 +174,21 @@ function shpData(x) {
     verifyData = 0;
   }
 
-  if (phoneNumber.toString().length === 10) {
-    shipDataArr[9] = phoneNumber;
-    verifyData++;
+  if (phoneNumber.replace(/\D/g,'').length === 10) {
+    if (type === "shipping") {
+      shipDataArr[9] = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+      formData.children[9].children[1].value = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+      verifyData++;
+
+    } else if (type === "billing") {
+      shipDataArr[9] = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+      formData.children[10].children[1].value = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+      verifyData++;
+    }
+
   } else {
     verifyData = 0;
   }
-
-  console.log(verifyData);
 
   if(type === "shipping") {
 
@@ -316,6 +319,9 @@ try {
 
 function payData() {
   var filledCount = 0;
+  var cardDate = "";
+
+  formData.children[1].children[1].setAttribute("type", "text");
 
   for (i = 0; i < formLength; i++) {
     paymentDataArr[i] = formData.children[i].children[1].value;
@@ -325,8 +331,15 @@ function payData() {
     }
   }
 
+  cardDate = paymentDataArr[1].replace(/\D/g,'');
+
+  if (cardDate.length === 4) {
+    paymentDataArr[1] = cardDate.replace(/(\d{2})(\d{2})/, "$1/$2");
+    formData.children[1].children[1].value = cardDate.replace(/(\d{2})(\d{2})/, "$1/$2");
+  }
+
   if (paymentDataArr[0].length >= 13 && paymentDataArr[0].length <= 19 &&
-      paymentDataArr[1].length === 4 && paymentDataArr[2].length >= 3 &&
+      cardDate.length === 4 && paymentDataArr[2].length >= 3 &&
       paymentDataArr[2].length <= 4 && filledCount === 4) {
 
     try {
